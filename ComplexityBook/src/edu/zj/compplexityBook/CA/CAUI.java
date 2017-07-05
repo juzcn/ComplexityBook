@@ -1,8 +1,10 @@
 package edu.zj.compplexityBook.CA;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 
+import edu.zj.compplexityBook.CA.GolData.State;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,15 +15,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class CAUI extends Application {
@@ -31,7 +26,8 @@ public class CAUI extends Application {
 	private int step = 0;
 	private String beginRow, beginColumn;
 	BorderPane center = new BorderPane();
-
+	private GolData data;
+	CAGridView<State> view;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
@@ -64,13 +60,28 @@ public class CAUI extends Application {
 		MenuBar menuBar = new MenuBar();
 		Menu stillMenu = new Menu("Still Lifes");
 		MenuItem blockItem = new MenuItem("Block");
+		MenuItem blinkerItem = new MenuItem("Blinker");
 		blockItem.setOnAction(e -> {
 			System.out.println("Block clicked");
-			CAGridView<GolCellState, GolData> view=new CAGridView<GolCellState, GolData>(5, 5, 30);
-			GolData data = new GolData();
-			data.setData(GolCellState.alive, 2, 1);
-			data.setData(GolCellState.alive, 2, 2);
-			data.setData(GolCellState.alive, 2, 3);
+			view=new CAGridView<State>(4, 4, 30);
+			data = new GolData();
+			data.setData(State.alive, new BigInteger("1"), new BigInteger("1"));
+			data.setData(State.alive, new BigInteger("1"), new BigInteger("2"));
+			data.setData(State.alive, new BigInteger("2"), new BigInteger("1"));
+			data.setData(State.alive, new BigInteger("2"), new BigInteger("2"));
+			beginRow="0";
+			beginColumn="0";
+			view.loadData(data,beginRow,beginColumn);
+			center.setCenter(view);
+			
+		});
+		blinkerItem.setOnAction(e -> {
+			System.out.println("Block clicked");
+			view=new CAGridView<State>(5, 5, 30);
+			data = new GolData();
+			data.setData(State.alive, new BigInteger("2"), new BigInteger("1"));
+			data.setData(State.alive, new BigInteger("2"), new BigInteger("2"));
+			data.setData(State.alive, new BigInteger("2"), new BigInteger("3"));
 			beginRow="0";
 			beginColumn="0";
 			view.loadData(data,beginRow,beginColumn);
@@ -78,7 +89,9 @@ public class CAUI extends Application {
 			
 		});
 		stillMenu.getItems().add(blockItem);
+		
 		Menu oscillatorsMenu = new Menu("Oscillators");
+		oscillatorsMenu.getItems().add(blinkerItem);
 		menuBar.getMenus().addAll(stillMenu, oscillatorsMenu);
 		return menuBar;
 	}
@@ -114,6 +127,9 @@ public class CAUI extends Application {
 
 	public void stepRun() {
 		step++;
+		data.evaluate();
+		data.apply();
+		view.show();
 	}
 
 	public static Button imageButton(String path) {
