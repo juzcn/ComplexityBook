@@ -1,36 +1,34 @@
 package edu.zj.compplexityBook.CA;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import java.math.BigInteger;
 
-public class CAGrid<T extends Enum<T>> extends GridPane {
-	private final CADataBounded<T> data;
-	private SimpleDoubleProperty latticeSizeProperty = new SimpleDoubleProperty();
+import edu.zj.compplexityBook.utils.SparseMatrix.Position;
 
-	public CAGrid(CADataBounded<T> data, double latticeSize) {
-		this.data = data;
-		this.latticeSizeProperty.setValue(latticeSize);
-		this.setPrefSize(getColumnSize() * latticeSize, getRowSize() * latticeSize);
-		Rectangle rectangle;
-		for (int i = 0; i < getRowSize(); i++) {
-			for (int j = 0; j < getColumnSize(); j++) {
-				rectangle = new Rectangle(latticeSize, latticeSize, Color.WHITE);
-				rectangle.setStroke(Color.BLACK);
-				rectangle.setStrokeWidth(1);
-				this.add(rectangle, j, i);
-			}
+public interface CAGrid<T, N extends Number> {
+	public void setData(N row, N column, T data);
 
-		}
+	public T getData(N row, N column);
+
+	public N add(N op1, int op2);
+
+	public N substract(N op1, int op2);
+
+	public N add(N op1, N op2);
+
+	public default Position<N>[] neighboursPos(Position<N> current) {
+		Position<N>[] neighbours = new Position[8];
+		neighbours[0] = new Position<>(current.getRow(), add(current.getColumn(),1));
+		neighbours[0] = new Position<>(current.getRow(), substract(current.getColumn(),1));
+
+		neighbours[0] = new Position<>(add(current.getRow(),1), add(current.getColumn(),1));
+		neighbours[0] = new Position<>(add(current.getRow(),1), substract(current.getColumn(),1));
+
+		neighbours[0] = new Position<>(substract(current.getRow(),1), add(current.getColumn(),1));
+		neighbours[0] = new Position<>(substract(current.getRow(),1), substract(current.getColumn(),1));
+
+		neighbours[6] = new Position<>(add(current.getRow(),1), current.getColumn());
+		neighbours[7] = new Position<>(substract(current.getRow(),1), current.getColumn());
+		return neighbours;
+
 	}
-
-	public final int getRowSize() {
-		return data.getRowSize();
-	}
-
-	public final int getColumnSize() {
-		return data.getColumnSize();
-	}
-
 }

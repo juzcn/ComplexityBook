@@ -5,7 +5,9 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 
 import edu.zj.compplexityBook.CA.GolData.State;
+import edu.zj.compplexityBook.utils.ObjectWrapper;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,7 +29,9 @@ public class CAUI extends Application {
 	private String beginRow, beginColumn;
 	BorderPane center = new BorderPane();
 	private GolData data;
-	CAGridView<State> view;
+	GolView view;
+	TextField intervalTimeField = new TextField("500");
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
@@ -61,65 +65,122 @@ public class CAUI extends Application {
 		Menu stillMenu = new Menu("Still Lifes");
 		MenuItem blockItem = new MenuItem("Block");
 		MenuItem blinkerItem = new MenuItem("Blinker");
+		MenuItem gliderItem = new MenuItem("Glider");
 		blockItem.setOnAction(e -> {
 			System.out.println("Block clicked");
-			view=new CAGridView<State>(4, 4, 30);
-			data = new GolData();
-			data.setData(State.alive, new BigInteger("1"), new BigInteger("1"));
-			data.setData(State.alive, new BigInteger("1"), new BigInteger("2"));
-			data.setData(State.alive, new BigInteger("2"), new BigInteger("1"));
-			data.setData(State.alive, new BigInteger("2"), new BigInteger("2"));
-			beginRow="0";
-			beginColumn="0";
-			view.loadData(data,beginRow,beginColumn);
+			view = new GolView(4, 4, 30);
+			data = new GolData(State.dead);
+			data.setData(new BigInteger("1"), new BigInteger("1"),State.alive);
+			data.setData(new BigInteger("1"), new BigInteger("2"),State.alive);
+			data.setData(new BigInteger("2"), new BigInteger("1"),State.alive);
+			data.setData( new BigInteger("2"), new BigInteger("2"),State.alive);
+			view.loadData(data);
+			view.show();
 			center.setCenter(view);
-			
+
 		});
 		blinkerItem.setOnAction(e -> {
 			System.out.println("Block clicked");
-			view=new CAGridView<State>(5, 5, 30);
-			data = new GolData();
-			data.setData(State.alive, new BigInteger("2"), new BigInteger("1"));
-			data.setData(State.alive, new BigInteger("2"), new BigInteger("2"));
-			data.setData(State.alive, new BigInteger("2"), new BigInteger("3"));
-			beginRow="0";
-			beginColumn="0";
-			view.loadData(data,beginRow,beginColumn);
+			view = new GolView(5, 5, 30);
+			data = new GolData(State.dead);
+			data.setData(new BigInteger("2"), new BigInteger("1"),State.alive);
+			data.setData(new BigInteger("2"), new BigInteger("2"),State.alive);
+			data.setData(new BigInteger("2"), new BigInteger("3"),State.alive);
+			beginRow = "0";
+			beginColumn = "0";
+			view.loadData(data);
+			view.show();
+
 			center.setCenter(view);
-			
+
+		});
+		gliderItem.setOnAction(e -> {
+			System.out.println("Block clicked");
+			view = new GolView(6, 6, 30);
+			data = new GolData(State.dead);
+			data.setData(new BigInteger("1"), new BigInteger("3"),State.alive);
+			data.setData(new BigInteger("2"), new BigInteger("1"),State.alive);
+			data.setData(new BigInteger("2"), new BigInteger("3"),State.alive);
+			data.setData(new BigInteger("3"), new BigInteger("2"),State.alive);
+			data.setData(new BigInteger("3"), new BigInteger("3"),State.alive);
+			beginRow = "0";
+			beginColumn = "0";
+			view.loadData(data);
+			view.show();
+
+			center.setCenter(view);
+
 		});
 		stillMenu.getItems().add(blockItem);
-		
+
 		Menu oscillatorsMenu = new Menu("Oscillators");
+		Menu spaceshipsMenu = new Menu("Spaceships");
 		oscillatorsMenu.getItems().add(blinkerItem);
-		menuBar.getMenus().addAll(stillMenu, oscillatorsMenu);
+		spaceshipsMenu.getItems().add(gliderItem);
+		menuBar.getMenus().addAll(stillMenu, oscillatorsMenu,spaceshipsMenu);
 		return menuBar;
 	}
 
 	public FlowPane commandPane() {
 		FlowPane commandPane = new FlowPane();
 		Button startButton = imageButton("resources/pictures/1498914398_Play1Normal.png");
+		Button stopButton = imageButton("resources/pictures/1498914718_Stop1NormalRed.png");
 		Button stepButton = imageButton("resources/pictures/1498915380_StepForwardPressed.png");
+		stopButton.setDisable(true);
 		Label maxStepLabel = new Label("总步数 ");
 		TextField maxStepField = new TextField("300");
 		maxStepField.setPrefColumnCount(3);
 
 		maxStepField.setEditable(false);
 		Label intervalTimeLabel = new Label("时间间隔 ");
-		TextField intervalTimeField = new TextField("500");
 		intervalTimeField.setPrefColumnCount(3);
 		Label stepLabel = new Label(" 步 ");
 
 		stepField.setPrefColumnCount(3);
-		commandPane.getChildren().addAll(startButton, stepButton, maxStepLabel, maxStepField, intervalTimeLabel,
+		commandPane.getChildren().addAll(startButton, stopButton,stepButton, maxStepLabel, maxStepField, intervalTimeLabel,
 				intervalTimeField, stepLabel, stepField);
+		
+		ObjectWrapper<Thread> threadWrapper=new ObjectWrapper<>(); 
+		// task and thread are ONE SHOT
 		startButton.setOnAction((e) -> {
-			while (step < Integer.parseInt(maxStepField.getText())) {
-				stepRun();
+			stopButton.setDisable(false);
+			if (threadWrapper.getValue()!=null) { 
+				threadWrapper.getValue().interrupt();
+				try {
+					threadWrapper.getValue().join();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
+			Task<Void> task = new Task<Void>() {
+				@Override
+				protected Void call() throws Exception {
+					System.out.println("Thread started cuurent step = "+step);
+					while (step < Integer.parseInt(maxStepField.getText())) {
+						stepRun();
+						Thread.sleep(Long.parseLong(intervalTimeField.getText()));
+					}
+					stopButton.setDisable(true);
+					return null;
+				}
+
+			};
+			Thread thread=new Thread(task);
+			threadWrapper.setValue(thread);
+//			thread.setDaemon(true);
+			System.out.println("Started thread "+thread);
+			thread.start();
 		});
+
 		stepButton.setOnAction((e) -> {
 			stepRun();
+		});
+
+		stopButton.setOnAction((e) -> {
+			if (threadWrapper.getValue()!=null) 
+				threadWrapper.getValue().interrupt();
+			threadWrapper.setValue(null);
 		});
 
 		return commandPane;
@@ -127,6 +188,7 @@ public class CAUI extends Application {
 
 	public void stepRun() {
 		step++;
+		stepField.setText(Integer.toString(step));
 		data.evaluate();
 		data.apply();
 		view.show();

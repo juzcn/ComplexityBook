@@ -1,20 +1,18 @@
 package edu.zj.compplexityBook.CA;
 
-import java.math.BigInteger;
-
-import edu.zj.compplexityBook.CA.GolData.State;
+import edu.zj.compplexityBook.utils.SparseMatrix.AbstractMatrix;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class CAGridView<T extends Enum<T>> extends GridPane {
-	private GolData data;
+public abstract class CAGridView<T, N extends Number, CA extends CAGrid<T, N>> extends GridPane {
+	private CA data;
 	private int rowCount, columnCount;
 	public static Color BACKGROUND_COLOR = Color.WHITE;
 	public static Color BORDER_COLOR = Color.BLUE;
-	public String beginRow, beginColumn;
+	public N beginRow=null, beginColumn=null;
 
 	public CAGridView(int rowCount, int columnCount, double latticeSize) {
 		this.rowCount = rowCount;
@@ -32,30 +30,26 @@ public class CAGridView<T extends Enum<T>> extends GridPane {
 		}
 	}
 
-	public void loadData(GolData data, String beginRow, String beginColumn) {
-		this.data = data;
+	public void setBegin(N beginRow, N beginColumn) {
 		this.beginRow = beginRow;
 		this.beginColumn = beginColumn;
-		show();
 	}
 
+	public void loadData(CA data) {
+		this.data = data;
+	}
+
+	
+	public abstract void draw(T data,int row,int column);
 	protected void show() {
-		System.out.println("Show ");
+		// System.out.println("Show ");
 		for (int i = 0; i < rowCount; i++) {
 			for (int j = 0; j < columnCount; j++) {
-				BigInteger row = new BigInteger(beginRow).add(new BigInteger(Integer.toString(i)));
-				BigInteger column = new BigInteger(beginRow).add(new BigInteger(Integer.toString(j)));
-				State s = data.getData(row, column);
-				if (s == State.alive) {
-					System.out.println("Black");
-					Rectangle r = getNodeByRowColumnIndex(i, j);
-					r.setFill(Color.BLACK);
-				} else {
-					System.out.println("White");
-					Rectangle r = getNodeByRowColumnIndex(i, j);
-					r.setFill(Color.WHITE);
-					
-				}
+				
+				N row = data.add(beginRow,i);
+				N column = data.add(beginColumn,j);
+
+				draw(data.getData(row, column),i,j);
 			}
 		}
 	}

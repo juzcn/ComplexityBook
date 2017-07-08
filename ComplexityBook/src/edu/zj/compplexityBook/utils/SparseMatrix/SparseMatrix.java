@@ -1,98 +1,66 @@
 package edu.zj.compplexityBook.utils.SparseMatrix;
 
-import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.util.Set;
 
-public class SparseMatrix<T> {
-	public static class Position {
-		private final BigInteger row;
-		private final BigInteger column;
-
-		public BigInteger getRow() {
-			return row;
-		}
-
-		public BigInteger getColumn() {
-			return column;
-		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((column == null) ? 0 : column.hashCode());
-			result = prime * result + ((row == null) ? 0 : row.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Position other = (Position) obj;
-			if (column == null) {
-				if (other.column != null)
-					return false;
-			} else if (!column.equals(other.column))
-				return false;
-			if (row == null) {
-				if (other.row != null)
-					return false;
-			} else if (!row.equals(other.row))
-				return false;
-			return true;
-		}
-
-		public Position(BigInteger row, BigInteger column) {
-			this.row = row;
-			this.column = column;
-		}
-
-	}
-
-	private final Map<Position, T> matrixData;
+public class SparseMatrix<T, N extends Number> extends AbstractMatrix<T, N> {
+	private final Map<Position<N>, T> data;
 
 	public SparseMatrix() {
-		matrixData = new HashMap<>();
+		super();
+		data = new HashMap<>();
 	};
 
-	public Set<Entry<Position, T>> getAll() {
-		return matrixData.entrySet();
+	public SparseMatrix(N rowSize, N columnSize) {
+		super(rowSize, columnSize);
+		data = new HashMap<>();
+	};
+
+	public Set<Entry<Position<N>, T>> getAll() {
+		return data.entrySet();
 	}
 
-	public void setData(T data, BigInteger row, BigInteger column) {
-		setData(data, new Position(row, column));
+	@Override
+	public T getData(N row, N column) {
+		// TODO Auto-generated method stub
+		return getData(new Position<N>(row, column));
 	}
 
-	public T getData(Position pos) {
-		return matrixData.get(pos);
+	@Override
+	public void setData(N row, N column, T data) {
+		setData(new Position<N>(row, column), data);
 	}
 
-	public void setData(T data, Position pos) {
-		matrixData.put(pos, data);
+	@Override
+	public T getData(Position<N> pos) {
+		return data.get(pos);
 	}
 
-	public T getData(BigInteger row, BigInteger column) {
-		return getData(new Position(row, column));
+	@Override
+	public void setData(Position<N> pos, T data) {
+		if (data == null)
+			this.data.remove(pos);
+		else
+			this.data.put(pos, data);
 	}
 
-	public final void clear() {
-		matrixData.clear();
+	@Override
+	public void clear() {
+		data.clear();
 	}
 
-	public final void clear(Position pos) {
-		matrixData.remove(pos);
-	}
-
-	public final void clear(BigInteger row, BigInteger column) {
-		clear(new Position(row, column));
+	@Override
+	public Set<AbstractMatrix<T, N>.Element> getNotNulls() {
+		Set<Element> set = new HashSet<>();
+		Set<Entry<Position<N>, T>> entries = data.entrySet();
+		for (Entry<Position<N>, T> entry:entries) {
+			set.add(new Element(entry.getKey().getRow(),entry.getKey().getColumn(),entry.getValue()));
+		}
+		return set;
 	}
 
 }
