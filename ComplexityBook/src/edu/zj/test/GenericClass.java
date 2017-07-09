@@ -1,9 +1,10 @@
 package edu.zj.test;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public class GenericClass<T,S>
+public class GenericClass<T  extends String,S>
 {
     private Class<T> realType;
 
@@ -11,6 +12,18 @@ public class GenericClass<T,S>
         findTypeArguments(getClass());
     }
 
+    public T kill(T a) {
+    	System.out.println(a);
+    	try {
+    		Method m=this.getClass().getMethod("kill",String.class);
+    		System.out.println(m.getReturnType());
+    		
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
+    }
     private void findTypeArguments(Type t) {
     	if (t==null) return;
         if (t instanceof ParameterizedType) {
@@ -34,5 +47,6 @@ public class GenericClass<T,S>
     public static void main(String[] args) {
     	MyClass test=new MyClass();
     	System.out.println("Type = "+test.getMyType());
+   	test.kill("Dead");
     }
 }

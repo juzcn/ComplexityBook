@@ -1,8 +1,9 @@
-package edu.zj.compplexityBook.CA;
+package edu.zj.compplexityBook.CellularAutomata.GameOfLife;
 
 import java.math.BigInteger;
 
-import edu.zj.compplexityBook.CA.GolData.State;
+import edu.zj.compplexityBook.CellularAutomata.CAGridView;
+import edu.zj.compplexityBook.CellularAutomata.GameOfLife.GolData.State;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

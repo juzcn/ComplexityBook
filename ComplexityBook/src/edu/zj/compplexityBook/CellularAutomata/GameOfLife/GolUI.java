@@ -1,10 +1,10 @@
-package edu.zj.compplexityBook.CA;
+package edu.zj.compplexityBook.CellularAutomata.GameOfLife;
 
 import java.io.File;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 
-import edu.zj.compplexityBook.CA.GolData.State;
+import edu.zj.compplexityBook.CellularAutomata.GameOfLife.GolData.State;
 import edu.zj.compplexityBook.utils.ObjectWrapper;
 import javafx.application.Application;
 import javafx.concurrent.Task;
@@ -21,7 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
-public class CAUI extends Application {
+public class GolUI extends Application {
 	public static double CELL_SIZE = 30;
 	public static int maxSteps = 300;
 	private TextField stepField = new TextField("0");;

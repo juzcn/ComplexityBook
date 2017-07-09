@@ -1,7 +1,9 @@
 package edu.zj.compplexityBook.utils.SparseMatrix;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.math.BigInteger;
 import java.util.Set;
 
@@ -40,7 +42,6 @@ public abstract class AbstractMatrix<T, N extends Number> {
 		this.rowSize = rowSize;
 		this.columnSize = columnSize;
 		this.sizeClass = this.getSizeClass();
-		System.out.println(sizeClass);
 	}
 
 	public abstract void clear();
@@ -54,6 +55,10 @@ public abstract class AbstractMatrix<T, N extends Number> {
 	public abstract void setData(Position<N> pos, T data);
 
 	public abstract Set<Element> getNotNulls();
+
+	public Element getElement(N row,N column) {
+		return new Element(row,column,getData(row,column)); 
+	}
 
 	@SuppressWarnings("unchecked")
 	public final N add(N op1, N op2) {
@@ -72,6 +77,7 @@ public abstract class AbstractMatrix<T, N extends Number> {
 
 	@SuppressWarnings("unchecked")
 	public final N add(N op1, int op2) {
+		
 		if (op1 == null) {
 			if (sizeClass == BigInteger.class)
 				return (N) new BigInteger(Integer.toString(op2));
@@ -119,5 +125,22 @@ public abstract class AbstractMatrix<T, N extends Number> {
 		}
 		return Integer.class;
 
+	}
+
+	private Class getSizeClass1() {
+		try {
+			Method m=this.getClass().getMethod("add", Number.class,Number.class);
+			TypeVariable type=(TypeVariable) m.getGenericReturnType();
+			
+			System.out.println(type);
+			
+//		((ParameterizedType) type).getRawType();
+//			System.out.println(types[0]);			
+//			return (Class) type;
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

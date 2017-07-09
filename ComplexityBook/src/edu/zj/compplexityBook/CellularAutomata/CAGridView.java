@@ -1,6 +1,5 @@
-package edu.zj.compplexityBook.CA;
+package edu.zj.compplexityBook.CellularAutomata;
 
-import edu.zj.compplexityBook.utils.SparseMatrix.AbstractMatrix;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -10,24 +9,28 @@ import javafx.scene.shape.Rectangle;
 public abstract class CAGridView<T, N extends Number, CA extends CAGrid<T, N>> extends GridPane {
 	private CA data;
 	private int rowCount, columnCount;
-	public static Color BACKGROUND_COLOR = Color.WHITE;
-	public static Color BORDER_COLOR = Color.BLUE;
+	public Color BACKGROUND_COLOR = Color.WHITE;
+	public final Color borderColor;
 	public N beginRow=null, beginColumn=null;
-
 	public CAGridView(int rowCount, int columnCount, double latticeSize) {
+		this(rowCount, columnCount, latticeSize,Color.BLUE);
+	}
+
+	public CAGridView(int rowCount, int columnCount, double latticeSize,Color borderColor) {
 		this.rowCount = rowCount;
 		this.columnCount = columnCount;
 		Rectangle rectangle;
 		for (int i = 0; i < rowCount; i++) {
 			for (int j = 0; j < columnCount; j++) {
 				rectangle = new Rectangle(latticeSize, latticeSize, BACKGROUND_COLOR);
-				rectangle.setStroke(BORDER_COLOR);
+				rectangle.setStroke(borderColor);
 				rectangle.setStrokeWidth(1);
 				this.add(rectangle, j, i);
 
 			}
 
 		}
+		this.borderColor=borderColor;
 	}
 
 	public void setBegin(N beginRow, N beginColumn) {
@@ -41,7 +44,7 @@ public abstract class CAGridView<T, N extends Number, CA extends CAGrid<T, N>> e
 
 	
 	public abstract void draw(T data,int row,int column);
-	protected void show() {
+	public void show() {
 		// System.out.println("Show ");
 		for (int i = 0; i < rowCount; i++) {
 			for (int j = 0; j < columnCount; j++) {

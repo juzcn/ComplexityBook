@@ -1,4 +1,4 @@
-package edu.zj.compplexityBook.CA;
+package edu.zj.compplexityBook.CellularAutomata;
 
 import java.math.BigInteger;
 

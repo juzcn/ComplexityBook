@@ -1,9 +1,11 @@
-package edu.zj.compplexityBook.CA;
+package edu.zj.compplexityBook.CellularAutomata.GameOfLife;
 
 import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.zj.compplexityBook.CellularAutomata.CAGridSparseMatrix;
+import edu.zj.compplexityBook.CellularAutomata.CAGridSparseMatrix.Cell;
 import edu.zj.compplexityBook.utils.SparseMatrix.AbstractMatrix;
 import edu.zj.compplexityBook.utils.SparseMatrix.Position;
 

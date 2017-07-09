@@ -1,4 +1,4 @@
-package edu.zj.compplexityBook.CA;
+package edu.zj.compplexityBook.CellularAutomata;
 
 import edu.zj.compplexityBook.utils.SparseMatrix.Position;
 import edu.zj.compplexityBook.utils.SparseMatrix.SparseMatrix;
