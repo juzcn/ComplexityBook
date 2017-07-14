@@ -4,7 +4,18 @@ import java.util.function.DoubleFunction;
 
 public class Neuron {
 	private ArtificialNeuralNetwork ann;
+	private NeuronLayer neuronLayer;
+
+	public NeuronLayer getNeuronLayer() {
+		return neuronLayer;
+	}
+
+	public void setNeuronLayer(NeuronLayer neuronLayer) {
+		this.neuronLayer = neuronLayer;
+	}
+
 	private int inputSize;
+
 	public int getInputSize() {
 		return inputSize;
 	}
@@ -12,24 +23,12 @@ public class Neuron {
 	private double weight[];
 	private double bias;
 	private DoubleFunction<Double> activationFunction;
-	private double precOutput;
-	private boolean delayed = false;
 
-	public Neuron(ArtificialNeuralNetwork ann, double weight[], double bias,
-			DoubleFunction<Double> activationFunction) {
-		this.ann = ann;
+	public Neuron(double weight[], double bias, DoubleFunction<Double> activationFunction) {
 		this.inputSize = weight.length;
 		this.bias = bias;
 		this.weight = weight;
 		this.activationFunction = activationFunction;
-	}
-
-	public Neuron(ArtificialNeuralNetwork ann, double weight[], double bias, DoubleFunction<Double> activationFunction,
-			double initialOutput) {
-		// delay neuron
-		this(ann, weight, bias, activationFunction);
-		this.precOutput = initialOutput;
-		this.delayed = true;
 	}
 
 	public static DoubleFunction<Double> hardlim = v -> {
@@ -80,20 +79,14 @@ public class Neuron {
 		return 0d;
 	};
 
-	public double output(double[] input) throws InputSizeIncorrectExeception {
+	public double output(double[] input) throws InputSizeIncorrectException {
 		if (input.length != inputSize) {
-			throw new InputSizeIncorrectExeception("input length = " + input.length + " inputSize= " + inputSize);
+			throw new InputSizeIncorrectException("input length = " + input.length + " inputSize= " + inputSize);
 		}
 		double n = bias;
 		for (int i = 0; i < inputSize; i++) {
 			n += weight[i] * input[i];
 		}
-		double output = activationFunction.apply(n);
-		if (delayed) {
-			double exchange = output;
-			output = precOutput;
-			precOutput = exchange;
-		}
-		return output;
+		return activationFunction.apply(n);
 	}
 }

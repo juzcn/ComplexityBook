@@ -45,12 +45,12 @@ public class Matrix<T> extends AbstractMatrix<T, Integer> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Element> getNotNulls() {
+	public Set<Element> get(T value) {
 		// TODO Auto-generated method stub
 		Set<Element> set = new HashSet<>();
 		for (int i = 0; i < getRowSize(); i++) {
 			for (int j = 0; j < getColumnSize(); j++) {
-				if (data[i][j] != null)
+				if (data[i][j].equals(value))
 					set.add(new Element(i, j, (T) data[i][j]));
 			}
 

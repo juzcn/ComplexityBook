@@ -22,7 +22,7 @@ public class GolData extends CAGridSparseMatrix<GolData.State, BigInteger> {
 		die, birth
 	}
 
-	public class GolCell extends Cell<State, Action> {
+	public class GolCell extends Cell {
 
 		public GolCell(AbstractMatrix<State, BigInteger>.Element element) {
 			super(element);
@@ -31,7 +31,7 @@ public class GolData extends CAGridSparseMatrix<GolData.State, BigInteger> {
 		@Override
 		public void evaluate() {
 			int numAlives = 0;
-			action = null;
+			nextState=null;
 			Position<BigInteger>[] neighbs = neighboursPos(new Position<>(element.getRow(), element.getColumn()));
 			for (int i = 0; i < neighbs.length; i++) {
 				if (getData(neighbs[i].getRow(), neighbs[i].getColumn()) == State.alive) {
@@ -40,31 +40,17 @@ public class GolData extends CAGridSparseMatrix<GolData.State, BigInteger> {
 			}
 			if (element.getData() == State.alive) {
 				if (numAlives < 2 || numAlives > 3) {
-					action = Action.die;
+					nextState = State.dead;
 				}
 			} else {
 				if (numAlives == 3) {
-					action = Action.birth;
+					nextState = State.alive;
 				}
 			}
 			// System.out.println("Row = "+ getRow()+ " Column = "+
 			// getColumn()+" Alives "+numAlives);
 		}
 
-		@Override
-		public void doAction() {
-			if (action != null) {
-				if (action == Action.die) {
-					// System.out.println("Row = "+ getRow()+ " Column = "+
-					// getColumn()+" Die ");
-					setData(element.getRow(), element.getColumn(), State.dead);
-				} else {
-					// System.out.println("Row = "+ getRow()+ " Column = "+
-					// getColumn()+" Birth ");
-					setData(element.getRow(), element.getColumn(), State.alive);
-				}
-			}
-		}
 	}
 
 	public static BigInteger ONE = new BigInteger("1");
@@ -86,7 +72,7 @@ public class GolData extends CAGridSparseMatrix<GolData.State, BigInteger> {
 	Set<GolCell> cells = new HashSet<>();
 
 	public void evaluate() {
-		Set<Element> all = getNotNulls();
+		Set<Element> all = get(State.alive);
 		// System.out.println("All alive Cell Size "+all.size());
 		for (Element entry : all) {
 			cells.add(new GolCell(entry));
@@ -105,7 +91,7 @@ public class GolData extends CAGridSparseMatrix<GolData.State, BigInteger> {
 
 	public void apply() {
 		for (GolCell cell : cells) {
-			cell.doAction();
+			cell.setState();
 		}
 
 	}

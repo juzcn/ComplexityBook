@@ -12,11 +12,7 @@ public class WolframData extends CAGridMatrix<WolframData.State> {
 		OFF, ON
 	}
 
-	public static enum Action {
-		TURN_OFF, TURN_ON
-	}
-
-	public class WolframCell extends Cell<State, Action> {
+	public class WolframCell extends Cell {
 
 		public WolframCell(Element element) {
 			super(element);
@@ -29,41 +25,11 @@ public class WolframData extends CAGridMatrix<WolframData.State> {
 			states[0] = (current == 0) ? getData(size() - 1) : getData(current - 1);
 			states[1] = element.getData();
 			states[2] = getData((current + 1) % size());
-			action = ruleBy(states);
-		}
-
-		@Override
-		public void doAction() {
-			if (action == Action.TURN_OFF) {
-				// System.out.println("Row = "+ getRow()+ " Column = "+
-				// getColumn()+" Die ");
-				setData(element.getColumn(), State.OFF);
-			} else {
-				// System.out.println("Row = "+ getRow()+ " Column = "+
-				// getColumn()+" Birth ");
-				setData(element.getColumn(), State.ON);
-			}
+			nextState = ruleBy(states);
 		}
 
 	}
 
-	private class Rule {
-		// private final State[] states;
-		private final Action action;
-
-		// public State[] getStates() {
-		// return states;
-		// }
-
-		public Action getAction() {
-			return action;
-		}
-
-		public Rule(Action action) {
-			// this.states = states;
-			this.action = action;
-		}
-	}
 
 	public WolframData(int columnSize, int ruleNumber) {
 		super(1, columnSize);
@@ -93,27 +59,25 @@ public class WolframData extends CAGridMatrix<WolframData.State> {
 		return getData(0, i);
 	}
 
-	private Rule[] rules;
+	private State[] rules;
 
-	public Action ruleBy(State[] states) {
+	public State ruleBy(State[] states) {
 		String s = Integer.toString(states[0].ordinal()) + Integer.toString(states[1].ordinal())
 				+ Integer.toString(states[2].ordinal());
-		return rules[Integer.valueOf(s, 2)].getAction();
+		return rules[Integer.valueOf(s, 2)];
 	}
 
-	public Rule[] rules(int ruleNumber) {
-		Rule[] rules = new Rule[8];
+	public State[] rules(int ruleNumber) {
+		State[] rules = new State[8];
 		String binary = Integer.toBinaryString(ruleNumber);
 		int lz=8 - binary.length();
 		for (int i = 0; i < lz; i++) {
 			binary = '0' + binary;
 		}
 		System.out.println("Binary" + binary);
-		Action action;
 		for (int j = 0; j < 8; j++) {
-			action = Action.values()[binary.charAt(7-j) - '0'];
-			rules[j] = new Rule(action);
-			System.out.println("Rule No "+j+" Action == "+action);
+			rules[j] = State.values()[binary.charAt(7-j) - '0'];
+			System.out.println("Rule No "+j+" New State == "+rules[j]);
 		}
 		return rules;
 	}
@@ -130,7 +94,7 @@ public class WolframData extends CAGridMatrix<WolframData.State> {
 
 	public void apply() {
 		for (int i = 0; i < size(); i++) {
-			cells[i].doAction();
+			cells[i].setState();
 		}
 	}
 

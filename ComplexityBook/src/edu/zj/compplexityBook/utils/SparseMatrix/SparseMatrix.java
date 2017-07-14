@@ -1,5 +1,6 @@
 package edu.zj.compplexityBook.utils.SparseMatrix;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,20 +10,17 @@ import java.util.Set;
 
 public class SparseMatrix<T, N extends Number> extends AbstractMatrix<T, N> {
 	private final Map<Position<N>, T> data;
+	private final T asNull;
 
-	public SparseMatrix() {
-		super();
-		data = new HashMap<>();
+	public SparseMatrix(T asNull) {
+		this(null, null, asNull);
 	};
 
-	public SparseMatrix(N rowSize, N columnSize) {
+	public SparseMatrix(N rowSize, N columnSize, T asNull) {
 		super(rowSize, columnSize);
-		data = new HashMap<>();
+		this.data = new HashMap<>();
+		this.asNull = asNull;
 	};
-
-	public Set<Entry<Position<N>, T>> getAll() {
-		return data.entrySet();
-	}
 
 	@Override
 	public T getData(N row, N column) {
@@ -37,12 +35,13 @@ public class SparseMatrix<T, N extends Number> extends AbstractMatrix<T, N> {
 
 	@Override
 	public T getData(Position<N> pos) {
-		return data.get(pos);
+		T d = data.get(pos);
+		return (d == null) ? asNull : d;
 	}
 
 	@Override
 	public void setData(Position<N> pos, T data) {
-		if (data == null)
+		if (data.equals(asNull))
 			this.data.remove(pos);
 		else
 			this.data.put(pos, data);
@@ -54,11 +53,18 @@ public class SparseMatrix<T, N extends Number> extends AbstractMatrix<T, N> {
 	}
 
 	@Override
-	public Set<AbstractMatrix<T, N>.Element> getNotNulls() {
+	public Set<AbstractMatrix<T, N>.Element> get(T value) {
 		Set<Element> set = new HashSet<>();
-		Set<Entry<Position<N>, T>> entries = data.entrySet();
-		for (Entry<Position<N>, T> entry:entries) {
-			set.add(new Element(entry.getKey().getRow(),entry.getKey().getColumn(),entry.getValue()));
+		if (value.equals(asNull)) {
+			// not implemented
+		} else {
+			Set<Entry<Position<N>, T>> entries = data.entrySet();
+			T v;
+			for (Entry<Position<N>, T> entry : entries) {
+				v = entry.getValue();
+				if (v.equals(value))
+					set.add(new Element(entry.getKey().getRow(), entry.getKey().getColumn(), v));
+			}
 		}
 		return set;
 	}

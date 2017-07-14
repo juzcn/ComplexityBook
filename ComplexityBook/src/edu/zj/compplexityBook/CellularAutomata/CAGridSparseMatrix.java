@@ -2,23 +2,20 @@ package edu.zj.compplexityBook.CellularAutomata;
 
 import edu.zj.compplexityBook.utils.SparseMatrix.Position;
 import edu.zj.compplexityBook.utils.SparseMatrix.SparseMatrix;
+import edu.zj.compplexityBook.utils.SparseMatrix.AbstractMatrix.Element;
 
 public class CAGridSparseMatrix<T, N extends Number> extends SparseMatrix<T, N> implements CAGrid<T, N> {
-	private final T asNull;
-
 	public CAGridSparseMatrix(T asNull) {
-		super();
-		this.asNull = asNull;
+		super(asNull);
 	}
 
 	public CAGridSparseMatrix(N rowSize, N columnSize, T asNull) {
-		super(rowSize, columnSize);
-		this.asNull = asNull;
+		super(rowSize, columnSize,asNull);
 	}
 
-	public abstract class Cell<S extends Enum<S>, A extends Enum<A>> {
+	public abstract class Cell {
 		protected final Element element;
-		protected A action;
+		protected T nextState;
 
 		public Cell(Element element) {
 			this.element = element;
@@ -26,23 +23,12 @@ public class CAGridSparseMatrix<T, N extends Number> extends SparseMatrix<T, N> 
 
 		public abstract void evaluate();
 
-		public abstract void doAction();
-	}
+		public void setState() {
+			if (nextState != null) {
+					setData(element.getRow(), element.getColumn(), nextState);
+			}
 
-	@Override
-	public T getData(Position<N> pos) {
-		T state = super.getData(pos);
-		if (state == null)
-			state = asNull;
-		return state;
-	}
-
-	@Override
-	public void setData(Position<N> pos, T data) {
-		if (data == null || data.equals(asNull))
-			super.setData(pos, null);
-		else
-			super.setData(pos, data);
+		}
 	}
 
 

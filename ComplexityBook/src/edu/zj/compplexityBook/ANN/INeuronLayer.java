@@ -1,7 +1,7 @@
 package edu.zj.compplexityBook.ANN;
 
 public interface INeuronLayer {
-	public double[] output(double input[]) throws InputSizeIncorrectExeception;
+	public double[] output(double input[]) throws InputSizeIncorrectException;
 	public int getInputSize();
 	public int getOutputSize();
 

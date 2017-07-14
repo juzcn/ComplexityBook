@@ -54,7 +54,7 @@ public abstract class AbstractMatrix<T, N extends Number> {
 
 	public abstract void setData(Position<N> pos, T data);
 
-	public abstract Set<Element> getNotNulls();
+	public abstract Set<Element> get(T value);
 
 	public Element getElement(N row,N column) {
 		return new Element(row,column,getData(row,column)); 

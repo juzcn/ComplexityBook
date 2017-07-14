@@ -4,12 +4,13 @@ public class NeuronLayer implements INeuronLayer {
 	private int inputSize;
 	private Neuron[] neurons;
 
-	public NeuronLayer(int inputSize, Neuron... neurons) throws InputSizeIncorrectExeception {
+	public NeuronLayer(int inputSize, Neuron... neurons) throws InputSizeIncorrectException {
 		for (int i = 0; i < neurons.length; i++) {
 			if (neurons[i].getInputSize() != inputSize) {
-				throw new InputSizeIncorrectExeception(
+				throw new InputSizeIncorrectException(
 						"input length = " + inputSize + " neuron input size= " + neurons[i].getInputSize());
 			}
+			neurons[i].setNeuronLayer(this);
 		}
 		this.neurons = neurons;
 		this.inputSize = inputSize;
@@ -20,9 +21,9 @@ public class NeuronLayer implements INeuronLayer {
 	}
 
 	@Override
-	public double[] output(double input[]) throws InputSizeIncorrectExeception {
+	public double[] output(double input[]) throws InputSizeIncorrectException {
 		if (input.length != inputSize) {
-			throw new InputSizeIncorrectExeception("input length = " + input.length + " inputSize= " + inputSize);
+			throw new InputSizeIncorrectException("input length = " + input.length + " inputSize= " + inputSize);
 		}
 		double[] output = new double[neurons.length];
 		for (int i = 0; i < neurons.length; i++) {

@@ -133,7 +133,7 @@ public class WolframUI extends Application {
 			};
 			Thread thread = new Thread(task);
 			threadWrapper.setValue(thread);
-			// thread.setDaemon(true);
+			thread.setDaemon(true);
 			System.out.println("Started thread " + thread);
 			thread.start();
 		});
