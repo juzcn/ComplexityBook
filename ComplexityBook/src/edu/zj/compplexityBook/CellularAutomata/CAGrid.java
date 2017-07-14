@@ -31,4 +31,8 @@ public interface CAGrid<T, N extends Number> {
 		return neighbours;
 
 	}
+	public void evaluate();
+	public void update();
+
+
 }

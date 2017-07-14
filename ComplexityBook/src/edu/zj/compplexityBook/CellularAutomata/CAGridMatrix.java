@@ -2,7 +2,7 @@ package edu.zj.compplexityBook.CellularAutomata;
 
 import edu.zj.compplexityBook.utils.SparseMatrix.Matrix;
 
-public class CAGridMatrix<T> extends Matrix<T> implements CAGrid<T,Integer>{
+public abstract  class CAGridMatrix<T> extends Matrix<T> implements CAGrid<T,Integer>{
 	public abstract class Cell {
 		protected final Element element;
 		protected T nextState;
@@ -13,7 +13,7 @@ public class CAGridMatrix<T> extends Matrix<T> implements CAGrid<T,Integer>{
 
 		public abstract void evaluate();
 
-		public void setState() {
+		public void update() {
 			if (nextState != null) {
 					setData(element.getRow(), element.getColumn(), nextState);
 			}

@@ -190,7 +190,7 @@ public class GolUI extends Application {
 		step++;
 		stepField.setText(Integer.toString(step));
 		data.evaluate();
-		data.apply();
+		data.update();
 		view.show();
 	}
 

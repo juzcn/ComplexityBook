@@ -24,7 +24,7 @@ public class GolData extends CAGridSparseMatrix<GolData.State, BigInteger> {
 
 	public class GolCell extends Cell {
 
-		public GolCell(AbstractMatrix<State, BigInteger>.Element element) {
+		public GolCell(Element element) {
 			super(element);
 		}
 
@@ -89,9 +89,9 @@ public class GolData extends CAGridSparseMatrix<GolData.State, BigInteger> {
 
 	}
 
-	public void apply() {
+	public void update() {
 		for (GolCell cell : cells) {
-			cell.setState();
+			cell.update();
 		}
 
 	}

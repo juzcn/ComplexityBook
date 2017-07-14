@@ -4,7 +4,7 @@ import edu.zj.compplexityBook.utils.SparseMatrix.Position;
 import edu.zj.compplexityBook.utils.SparseMatrix.SparseMatrix;
 import edu.zj.compplexityBook.utils.SparseMatrix.AbstractMatrix.Element;
 
-public class CAGridSparseMatrix<T, N extends Number> extends SparseMatrix<T, N> implements CAGrid<T, N> {
+public abstract class CAGridSparseMatrix<T, N extends Number> extends SparseMatrix<T, N> implements CAGrid<T, N> {
 	public CAGridSparseMatrix(T asNull) {
 		super(asNull);
 	}
@@ -23,7 +23,7 @@ public class CAGridSparseMatrix<T, N extends Number> extends SparseMatrix<T, N> 
 
 		public abstract void evaluate();
 
-		public void setState() {
+		public void update() {
 			if (nextState != null) {
 					setData(element.getRow(), element.getColumn(), nextState);
 			}

@@ -92,9 +92,9 @@ public class WolframData extends CAGridMatrix<WolframData.State> {
 		}
 	}
 
-	public void apply() {
+	public void update() {
 		for (int i = 0; i < size(); i++) {
-			cells[i].setState();
+			cells[i].update();
 		}
 	}
 

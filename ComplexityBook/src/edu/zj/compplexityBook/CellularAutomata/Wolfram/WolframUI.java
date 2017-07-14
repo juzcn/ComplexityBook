@@ -155,7 +155,7 @@ public class WolframUI extends Application {
 		System.out.println("Step run");
 		step++;
 		data.evaluate();
-		data.apply();
+		data.update();
 		Platform.runLater(() -> {
 			stepField.setText(Integer.toString(step));
 			view = new WolframView(Integer.parseInt(sizeField.getText()),Integer.parseInt(cellSizeField.getText()));
