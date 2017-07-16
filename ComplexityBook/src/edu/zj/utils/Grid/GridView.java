@@ -1,13 +1,12 @@
 package edu.zj.utils.Grid;
 
-import edu.zj.utils.SparseMatrix.AbstractMatrix;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public abstract class GridView<T, N extends Number, CA extends AbstractMatrix<T, N>> extends GridPane {
+public abstract class GridView<T, N extends Number, CA extends AbstractGrid<T, N>> extends GridPane {
 	private CA data;
 	private int rowCount, columnCount;
 	public Color BACKGROUND_COLOR = Color.WHITE;

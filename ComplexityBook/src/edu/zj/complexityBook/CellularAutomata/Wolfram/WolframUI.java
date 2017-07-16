@@ -148,7 +148,7 @@ public class WolframUI extends Application {
 	public void stepRun() {
 		System.out.println("Step run");
 		step++;
-		data.evaluate();
+		data.evaluate(false);
 		data.update();
 		Platform.runLater(() -> {
 			stepField.setText(Integer.toString(step));

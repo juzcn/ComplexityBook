@@ -1,10 +1,10 @@
-package edu.zj.utils.SparseMatrix;
+package edu.zj.utils.Grid;
 
-public class Position<N extends Number> {
+public class GridPos<N extends Number> {
 	private final N row;
 	private final N column;
 
-	public Position(N row, N column) {
+	public GridPos(N row, N column) {
 		this.row = row;
 		this.column = column;
 	}
@@ -35,7 +35,7 @@ public class Position<N extends Number> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Position<N> other = (Position<N>) obj;
+		GridPos<N> other = (GridPos<N>) obj;
 		if (column == null) {
 			if (other.column != null)
 				return false;

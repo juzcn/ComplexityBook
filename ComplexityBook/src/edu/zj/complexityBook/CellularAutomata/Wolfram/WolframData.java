@@ -2,17 +2,26 @@ package edu.zj.complexityBook.CellularAutomata.Wolfram;
 
 import java.util.Random;
 
-import edu.zj.complexityBook.CA.CAMatrix;
 import edu.zj.complexityBook.CA.I_CACell;
+import edu.zj.complexityBook.CA.I_CAData;
 import edu.zj.complexityBook.CellularAutomata.Wolfram.WolframCell.State;
+import edu.zj.utils.Grid.Grid;
 
-public class WolframData extends CAMatrix<WolframCell.State> {
+public class WolframData extends Grid<WolframCell.State> implements I_CAData {
 	// Random random=new Random(1000l);
 	Random random = new Random();
+	private I_CACell[] cells;
 
+	public I_CACell[] getCells() {
+		return cells;
+	}
+
+	public void setCells(I_CACell[] cells) {
+		this.cells = cells;
+	}
 
 	public WolframData(int columnSize, int ruleNumber) {
-		super(1, columnSize);
+		super(1, columnSize, true);
 		rules = rules(ruleNumber);
 		for (int i = 0; i < columnSize; i++) {
 			if (random.nextBoolean()) {
@@ -50,14 +59,14 @@ public class WolframData extends CAMatrix<WolframCell.State> {
 	public WolframCell.State[] rules(int ruleNumber) {
 		State[] rules = new WolframCell.State[8];
 		String binary = Integer.toBinaryString(ruleNumber);
-		int lz=8 - binary.length();
+		int lz = 8 - binary.length();
 		for (int i = 0; i < lz; i++) {
 			binary = '0' + binary;
 		}
 		System.out.println("Binary" + binary);
 		for (int j = 0; j < 8; j++) {
-			rules[j] = State.values()[binary.charAt(7-j) - '0'];
-			System.out.println("Rule No "+j+" New State == "+rules[j]);
+			rules[j] = State.values()[binary.charAt(7 - j) - '0'];
+			System.out.println("Rule No " + j + " New State == " + rules[j]);
 		}
 		return rules;
 	}
@@ -65,10 +74,9 @@ public class WolframData extends CAMatrix<WolframCell.State> {
 	public I_CACell[] cells() {
 		I_CACell[] cells = new WolframCell[size()];
 		for (int i = 0; i < size(); i++) {
-			cells[i] = new WolframCell(this,element(i).getRow(),element(i).getColumn(),element(i).getData());
+			cells[i] = new WolframCell(this, element(i).getRow(), element(i).getColumn(), element(i).getData());
 		}
 		return cells;
 	}
-
 
 }

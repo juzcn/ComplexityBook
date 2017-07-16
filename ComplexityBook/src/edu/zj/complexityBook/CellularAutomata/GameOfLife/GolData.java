@@ -4,12 +4,23 @@ import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.zj.complexityBook.CA.CASparseMatrix;
 import edu.zj.complexityBook.CA.I_CACell;
+import edu.zj.complexityBook.CA.I_CAData;
 import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolCell.State;
-import edu.zj.utils.SparseMatrix.Position;
+import edu.zj.utils.Grid.GridPos;
+import edu.zj.utils.Grid.SparseGrid;
 
-public class GolData extends CASparseMatrix<GolCell.State, BigInteger> {
+public class GolData extends SparseGrid<GolCell.State, BigInteger> implements I_CAData {
+	private I_CACell[] cells;
+	public I_CACell[] getCells() {
+		return cells;
+	}
+
+
+	public void setCells(I_CACell[] cells) {
+		this.cells = cells;
+	}
+
 
 	public GolData(State asNull) {
 		super(asNull);
@@ -23,7 +34,7 @@ public class GolData extends CASparseMatrix<GolCell.State, BigInteger> {
 		// System.out.println("All alive Cell Size "+all.size());
 		for (Element entry : all) {
 			cells.add(new GolCell(this,entry.getRow(),entry.getColumn(),entry.getData()));
-			Position<BigInteger>[] neighbs = neighboursPos8(entry.getRow(), entry.getColumn());
+			GridPos<BigInteger>[] neighbs = neighboursPos8(entry.getRow(), entry.getColumn());
 			for (int i = 0; i < neighbs.length; i++) {
 				cells.add(new GolCell(this, neighbs[i].getRow(), neighbs[i].getColumn(),
 						getData(neighbs[i].getRow(), neighbs[i].getColumn())));

@@ -1,4 +1,4 @@
-package edu.zj.utils.SparseMatrix;
+package edu.zj.utils.Grid;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,39 +6,43 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class SparseMatrix<T, N extends Number> extends AbstractMatrix<T, N> {
-	private final Map<Position<N>, T> data;
+public class SparseGrid<T, N extends Number> extends AbstractGrid<T, N> {
+	private final Map<GridPos<N>, T> data;
 	private final T asNull;
 
-	public SparseMatrix(T asNull) {
-		this(null, null, asNull);
+	public SparseGrid(T asNull) {
+		this(null, null, false,asNull);
 	};
 
-	public SparseMatrix(N rowSize, N columnSize, T asNull) {
-		super(rowSize, columnSize);
+	public SparseGrid(N rowSize, N columnSize, boolean wrapped, T asNull) {
+		super(rowSize, columnSize, wrapped);
 		this.data = new HashMap<>();
 		this.asNull = asNull;
+	}
+
+	public SparseGrid(N rowSize, N columnSize, T asNull) {
+		this(rowSize, columnSize, false, asNull);
 	};
 
 	@Override
 	public T getData(N row, N column) {
 		// TODO Auto-generated method stub
-		return getData(new Position<N>(row, column));
+		return getData(new GridPos<N>(row, column));
 	}
 
 	@Override
 	public void setData(N row, N column, T data) {
-		setData(new Position<N>(row, column), data);
+		setData(new GridPos<N>(row, column), data);
 	}
 
 	@Override
-	public T getData(Position<N> pos) {
+	public T getData(GridPos<N> pos) {
 		T d = data.get(pos);
 		return (d == null) ? asNull : d;
 	}
 
 	@Override
-	public void setData(Position<N> pos, T data) {
+	public void setData(GridPos<N> pos, T data) {
 		if (data.equals(asNull))
 			this.data.remove(pos);
 		else
@@ -51,14 +55,14 @@ public class SparseMatrix<T, N extends Number> extends AbstractMatrix<T, N> {
 	}
 
 	@Override
-	public Set<AbstractMatrix<T, N>.Element> get(T value) {
+	public Set<AbstractGrid<T, N>.Element> get(T value) {
 		Set<Element> set = new HashSet<>();
 		if (value.equals(asNull)) {
 			// not implemented
 		} else {
-			Set<Entry<Position<N>, T>> entries = data.entrySet();
+			Set<Entry<GridPos<N>, T>> entries = data.entrySet();
 			T v;
-			for (Entry<Position<N>, T> entry : entries) {
+			for (Entry<GridPos<N>, T> entry : entries) {
 				v = entry.getValue();
 				if (v.equals(value))
 					set.add(new Element(entry.getKey().getRow(), entry.getKey().getColumn(), v));

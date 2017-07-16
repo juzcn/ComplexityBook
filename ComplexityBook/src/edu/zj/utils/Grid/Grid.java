@@ -1,15 +1,20 @@
-package edu.zj.utils.SparseMatrix;
+package edu.zj.utils.Grid;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Matrix<T> extends AbstractMatrix<T, Integer> {
+public class Grid<T> extends AbstractGrid<T, Integer> {
+	public Grid(Integer rowSize, Integer columnSize, boolean wrapped) {
+		super(rowSize, columnSize, wrapped);
+		data = new Object[rowSize][columnSize];
+		System.out.println("Wrapped "+wrapped);
+		clear();
+	}
+
 	private final Object data[][];
 
-	public Matrix(Integer rowSize, Integer columnSize) {
-		super(rowSize, columnSize);
-		data = new Object[rowSize][columnSize];
-		clear();
+	public Grid(Integer rowSize, Integer columnSize) {
+		this(rowSize, columnSize,false);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -24,12 +29,12 @@ public class Matrix<T> extends AbstractMatrix<T, Integer> {
 	}
 
 	@Override
-	public T getData(Position<Integer> pos) {
+	public T getData(GridPos<Integer> pos) {
 		return getData(pos.getRow(), pos.getColumn());
 	}
 
 	@Override
-	public void setData(Position<Integer> pos, T data) {
+	public void setData(GridPos<Integer> pos, T data) {
 		setData(pos.getRow(), pos.getColumn(), data);
 	}
 
