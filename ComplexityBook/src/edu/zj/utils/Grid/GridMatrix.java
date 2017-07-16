@@ -1,8 +1,8 @@
-package edu.zj.complexityBook.CellularAutomata;
+package edu.zj.utils.Grid;
 
 import edu.zj.utils.SparseMatrix.Matrix;
 
-public abstract  class CAGridMatrix<T> extends Matrix<T> implements CAGrid<T,Integer>{
+public abstract  class GridMatrix<T> extends Matrix<T> {
 	public abstract class Cell {
 		protected final Element element;
 		protected T nextState;
@@ -22,7 +22,7 @@ public abstract  class CAGridMatrix<T> extends Matrix<T> implements CAGrid<T,Int
 	}
 
 
-	public CAGridMatrix(Integer rowSize, Integer columnSize) {
+	public GridMatrix(Integer rowSize, Integer columnSize) {
 		super(rowSize, columnSize);
 	}
 

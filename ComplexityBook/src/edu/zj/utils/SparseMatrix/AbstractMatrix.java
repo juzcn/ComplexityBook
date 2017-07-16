@@ -143,4 +143,37 @@ public abstract class AbstractMatrix<T, N extends Number> {
 		}
 		return null;
 	}
+//	public  Position<N>[] neighboursPos8(Position<N> current) {
+//		Position<N>[] neighbours = new Position[8];
+//		neighbours[0] = new Position<>(current.getRow(), add(current.getColumn(),1));
+//		neighbours[1] = new Position<>(current.getRow(), substract(current.getColumn(),1));
+//
+//		neighbours[2] = new Position<>(add(current.getRow(),1), add(current.getColumn(),1));
+//		neighbours[3] = new Position<>(add(current.getRow(),1), substract(current.getColumn(),1));
+//
+//		neighbours[4] = new Position<>(substract(current.getRow(),1), add(current.getColumn(),1));
+//		neighbours[5] = new Position<>(substract(current.getRow(),1), substract(current.getColumn(),1));
+//
+//		neighbours[6] = new Position<>(add(current.getRow(),1), current.getColumn());
+//		neighbours[7] = new Position<>(substract(current.getRow(),1), current.getColumn());
+//		return neighbours;
+//
+//	}
+	public Position<N>[] neighboursPos8(N row,N column) {
+		Position<N>[] neighbours = new Position[8];
+		neighbours[0] = new Position<>(row, add(column,1));
+		neighbours[1] = new Position<>(row, substract(column,1));
+
+		neighbours[2] = new Position<>(add(row,1), add(column,1));
+		neighbours[3] = new Position<>(add(row,1), substract(column,1));
+
+		neighbours[4] = new Position<>(substract(row,1), add(column,1));
+		neighbours[5] = new Position<>(substract(row,1), substract(column,1));
+
+		neighbours[6] = new Position<>(add(row,1), column);
+		neighbours[7] = new Position<>(substract(row,1), column);
+		return neighbours;
+
+	}
+
 }

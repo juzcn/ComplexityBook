@@ -4,7 +4,7 @@ import java.io.File;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 
-import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolData.State;
+import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolCell.State;
 import edu.zj.complexityBook.utils.ObjectWrapper;
 import javafx.application.Application;
 import javafx.concurrent.Task;

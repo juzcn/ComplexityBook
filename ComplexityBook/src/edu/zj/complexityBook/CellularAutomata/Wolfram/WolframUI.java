@@ -1,10 +1,8 @@
 package edu.zj.complexityBook.CellularAutomata.Wolfram;
 
 import java.io.File;
-import java.math.BigInteger;
 import java.net.MalformedURLException;
 
-import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolData.State;
 import edu.zj.complexityBook.utils.ObjectWrapper;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,9 +10,6 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -22,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class WolframUI extends Application {

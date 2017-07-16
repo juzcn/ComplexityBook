@@ -2,12 +2,11 @@ package edu.zj.complexityBook.CellularAutomata.GameOfLife;
 
 import java.math.BigInteger;
 
-import edu.zj.complexityBook.CellularAutomata.CAGridView;
-import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolData.State;
+import edu.zj.utils.Grid.GridView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GolView extends CAGridView<GolData.State,BigInteger,GolData> {
+public class GolView extends GridView<GolCell.State,BigInteger,GolData> {
 
 	public GolView(int rowCount, int columnCount, double latticeSize) {
 		super(rowCount, columnCount, latticeSize);
@@ -15,8 +14,8 @@ public class GolView extends CAGridView<GolData.State,BigInteger,GolData> {
 	}
 
 	@Override
-	public void draw(State data,int row,int column) {
-		if (data== State.alive) {
+	public void draw(GolCell.State data,int row,int column) {
+		if (data== GolCell.State.alive) {
 //			System.out.println("Black");
 			Rectangle r = getNodeByRowColumnIndex(row, column);
 			r.setFill(Color.BLACK);
