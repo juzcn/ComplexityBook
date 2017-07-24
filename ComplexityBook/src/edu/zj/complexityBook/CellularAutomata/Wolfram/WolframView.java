@@ -1,6 +1,6 @@
 package edu.zj.complexityBook.CellularAutomata.Wolfram;
 
-import edu.zj.utils.Grid.GridView;
+import edu.zj.utils.Grid.View.GridView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

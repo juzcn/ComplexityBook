@@ -1,4 +1,4 @@
-package edu.zj.utils.Grid;
+package edu.zj.utils.Grid.Data;
 
 public class GridPos<N extends Number> {
 	private final N row;

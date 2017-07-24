@@ -3,7 +3,7 @@ package edu.zj.complexityBook.CellularAutomata.Wolfram;
 import java.io.File;
 import java.net.MalformedURLException;
 
-import edu.zj.complexityBook.utils.ObjectWrapper;
+import edu.zj.complexityBook.utils.Gadgets;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -87,7 +87,7 @@ public class WolframUI extends Application {
 				intervalTimeLabel, intervalTimeField, stepLabel, stepField, setupButton, sizeLabel, sizeField,
 				ruleLabel, ruleField,cellSizeLabel,cellSizeField);
 
-		ObjectWrapper<Thread> threadWrapper = new ObjectWrapper<>();
+		Gadgets<Thread> threadWrapper = new Gadgets<>();
 		setupButton.setOnAction(e -> {
 			vbox=new VBox();
 			

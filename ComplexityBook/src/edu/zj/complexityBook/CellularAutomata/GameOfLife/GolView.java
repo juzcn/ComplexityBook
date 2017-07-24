@@ -2,7 +2,7 @@ package edu.zj.complexityBook.CellularAutomata.GameOfLife;
 
 import java.math.BigInteger;
 
-import edu.zj.utils.Grid.GridView;
+import edu.zj.utils.Grid.View.GridView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

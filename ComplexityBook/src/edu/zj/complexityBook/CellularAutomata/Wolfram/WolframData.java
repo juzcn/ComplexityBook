@@ -5,7 +5,7 @@ import java.util.Random;
 import edu.zj.complexityBook.CA.I_CACell;
 import edu.zj.complexityBook.CA.I_CAData;
 import edu.zj.complexityBook.CellularAutomata.Wolfram.WolframCell.State;
-import edu.zj.utils.Grid.Grid;
+import edu.zj.utils.Grid.Data.Grid;
 
 public class WolframData extends Grid<WolframCell.State> implements I_CAData {
 	// Random random=new Random(1000l);

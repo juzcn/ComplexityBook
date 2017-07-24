@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 
 import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolCell.State;
-import edu.zj.complexityBook.utils.ObjectWrapper;
+import edu.zj.complexityBook.utils.Gadgets;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -140,7 +140,7 @@ public class GolUI extends Application {
 		commandPane.getChildren().addAll(startButton, stopButton,stepButton, maxStepLabel, maxStepField, intervalTimeLabel,
 				intervalTimeField, stepLabel, stepField);
 		
-		ObjectWrapper<Thread> threadWrapper=new ObjectWrapper<>(); 
+		Gadgets<Thread> threadWrapper=new Gadgets<>(); 
 		// task and thread are ONE SHOT
 		startButton.setOnAction((e) -> {
 			stopButton.setDisable(false);

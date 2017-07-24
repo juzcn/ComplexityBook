@@ -1,4 +1,4 @@
-package edu.zj.utils.Grid;
+package edu.zj.utils.Grid.Data;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,7 +1,7 @@
 package edu.zj.complexityBook.CA;
 
-import edu.zj.utils.Grid.AbstractGrid;
-import edu.zj.utils.Grid.GridCell;
+import edu.zj.utils.Grid.Data.AbstractGrid;
+import edu.zj.utils.Grid.View.GridCell;
 
 public abstract class CACell<S extends Enum<S>, N extends Number, C extends AbstractGrid<S, N>> extends GridCell<S, N>
 		implements I_CACell {

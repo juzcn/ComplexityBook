@@ -1,5 +1,7 @@
-package edu.zj.utils.Grid;
+package edu.zj.utils.Grid.View;
 
+import edu.zj.complexityBook.utils.Gadgets;
+import edu.zj.utils.Grid.Data.AbstractGrid;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -11,7 +13,7 @@ public abstract class GridView<T, N extends Number, CA extends AbstractGrid<T, N
 	private int rowCount, columnCount;
 	public Color BACKGROUND_COLOR = Color.WHITE;
 	public final Color borderColor;
-	public N beginRow = null, beginColumn = null;
+	public N beginRow, beginColumn;
 
 	public GridView(int rowCount, int columnCount, double latticeSize) {
 		this(rowCount, columnCount, latticeSize, Color.BLUE);
@@ -31,7 +33,6 @@ public abstract class GridView<T, N extends Number, CA extends AbstractGrid<T, N
 				this.add(rectangle, j, i);
 			}
 		}
-
 		this.borderColor = borderColor;
 	}
 
@@ -50,7 +51,6 @@ public abstract class GridView<T, N extends Number, CA extends AbstractGrid<T, N
 		// System.out.println("Show ");
 		for (int i = 0; i < rowCount; i++) {
 			for (int j = 0; j < columnCount; j++) {
-
 				N row = data.add(beginRow, i);
 				N column = data.add(beginColumn, j);
 				draw(data.getData(row, column), i, j);

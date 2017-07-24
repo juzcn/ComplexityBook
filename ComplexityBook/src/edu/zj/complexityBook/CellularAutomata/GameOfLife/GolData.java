@@ -7,8 +7,8 @@ import java.util.Set;
 import edu.zj.complexityBook.CA.I_CACell;
 import edu.zj.complexityBook.CA.I_CAData;
 import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolCell.State;
-import edu.zj.utils.Grid.GridPos;
-import edu.zj.utils.Grid.SparseGrid;
+import edu.zj.utils.Grid.Data.GridPos;
+import edu.zj.utils.Grid.Data.SparseGrid;
 
 public class GolData extends SparseGrid<GolCell.State, BigInteger> implements I_CAData {
 	private I_CACell[] cells;
