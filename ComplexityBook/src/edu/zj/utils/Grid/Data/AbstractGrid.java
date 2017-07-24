@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.Set;
 
-public abstract class AbstractGrid<T, N extends Number> {
+public abstract class AbstractGrid<T, N extends Number & Comparable<N>> {
 	protected final N rowSize;
 	protected final N columnSize;
 	protected final boolean wrapped;
@@ -55,9 +55,9 @@ public abstract class AbstractGrid<T, N extends Number> {
 
 	public abstract void setData(N row, N column, T data);
 
-	public abstract T getData(GridPos<N> pos);
+//	public abstract T getData(GridPos<N> pos);
 
-	public abstract void setData(GridPos<N> pos, T data);
+//	public abstract void setData(GridPos<N> pos, T data);
 
 	public abstract Set<Element> get(T value);
 
@@ -184,7 +184,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public GridPos<N>[] neighboursPos8(N row, N column) {
+	public GridPos<N>[] neighbs8(N row, N column) {
 		GridPos<N>[] neighbours = new GridPos[8];
 		for (int i=0;i<8;i++) {
 			neighbours[i]=neighb(row,column,Direction.values()[i]);
@@ -193,7 +193,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public GridPos<N>[] neighboursPos4(N row, N column) {
+	public GridPos<N>[] neighbs4(N row, N column) {
 		GridPos<N>[] neighbours = new GridPos[4];
 		for (int i=0;i<4;i++) {
 			neighbours[i]=neighb(row,column,Direction.values()[i]);

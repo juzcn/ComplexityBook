@@ -1,6 +1,5 @@
 package edu.zj.utils.Grid.View;
 
-import edu.zj.complexityBook.utils.Gadgets;
 import edu.zj.utils.Grid.Data.AbstractGrid;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -8,7 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public abstract class GridView<T, N extends Number, CA extends AbstractGrid<T, N>> extends GridPane {
+public abstract class GridView<T, N extends Number & Comparable<N>, CA extends AbstractGrid<T, N>> extends GridPane {
 	private CA data;
 	private int rowCount, columnCount;
 	public Color BACKGROUND_COLOR = Color.WHITE;

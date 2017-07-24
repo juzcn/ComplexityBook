@@ -28,15 +28,15 @@ public class Grid<T> extends AbstractGrid<T, Integer> {
 		this.data[row][column] = data;
 	}
 
-	@Override
-	public T getData(GridPos<Integer> pos) {
-		return getData(pos.getRow(), pos.getColumn());
-	}
+//	@Override
+//	public T getData(GridPos<Integer> pos) {
+//		return getData(pos.getRow(), pos.getColumn());
+//	}
 
-	@Override
-	public void setData(GridPos<Integer> pos, T data) {
-		setData(pos.getRow(), pos.getColumn(), data);
-	}
+//	@Override
+//	public void setData(GridPos<Integer> pos, T data) {
+//		setData(pos.getRow(), pos.getColumn(), data);
+//	}
 
 	@Override
 	public void clear() {

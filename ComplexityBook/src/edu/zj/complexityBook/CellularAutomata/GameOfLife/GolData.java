@@ -34,7 +34,7 @@ public class GolData extends SparseGrid<GolCell.State, BigInteger> implements I_
 		// System.out.println("All alive Cell Size "+all.size());
 		for (Element entry : all) {
 			cells.add(new GolCell(this,entry.getRow(),entry.getColumn(),entry.getData()));
-			GridPos<BigInteger>[] neighbs = neighboursPos8(entry.getRow(), entry.getColumn());
+			GridPos<BigInteger>[] neighbs = neighbs8(entry.getRow(), entry.getColumn());
 			for (int i = 0; i < neighbs.length; i++) {
 				cells.add(new GolCell(this, neighbs[i].getRow(), neighbs[i].getColumn(),
 						getData(neighbs[i].getRow(), neighbs[i].getColumn())));
