@@ -131,7 +131,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 
 	}
 
-	private final Integer incrementRow(Integer row) {
+	public final Integer incrementRow(Integer row) {
 		row++;
 		if (row.equals((Integer) getRowSize())) {
 			if (wrapped)
@@ -141,7 +141,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 		return row;
 	}
 
-	private final BigInteger incrementRow(BigInteger row) {
+	public final BigInteger incrementRow(BigInteger row) {
 		row = row.add(BigInteger.ONE);
 		if (row.equals((BigInteger) getRowSize())) {
 			if (wrapped)
@@ -151,7 +151,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 		return row;
 	}
 
-	private final Integer decrementRow(Integer row) {
+	public final Integer decrementRow(Integer row) {
 		row--;
 		if (row == -1) {
 			if (wrapped)
@@ -163,7 +163,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 
 	public final static BigInteger NEGATIVE_ONE = new BigInteger("-1");
 
-	private final BigInteger decrementRow(BigInteger row) {
+	public final BigInteger decrementRow(BigInteger row) {
 		row = row.subtract(BigInteger.ONE);
 		if (row.equals(NEGATIVE_ONE)) {
 			if (wrapped)
@@ -173,7 +173,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 		return row;
 	}
 
-	private final Integer incrementColumn(Integer column) {
+	public final Integer incrementColumn(Integer column) {
 		column++;
 		if (column.equals((Integer) getColumnSize())) {
 //			System.out.println("Wrapped " + wrapped + "column  column size " + column + " " + getColumnSize());
@@ -184,7 +184,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 		return column;
 	}
 
-	private final BigInteger incrementColumn(BigInteger column) {
+	public final BigInteger incrementColumn(BigInteger column) {
 		column = column.add(BigInteger.ONE);
 		if (column.equals((BigInteger) getColumnSize())) {
 			if (wrapped)
@@ -194,7 +194,7 @@ public abstract class AbstractGrid<T, N extends Number> {
 		return column;
 	}
 
-	private final Integer decrementColumn(Integer column) {
+	public final Integer decrementColumn(Integer column) {
 		column--;
 		if (column == -1) {
 			if (wrapped)

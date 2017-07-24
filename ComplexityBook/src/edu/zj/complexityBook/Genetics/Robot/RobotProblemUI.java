@@ -3,6 +3,7 @@ package edu.zj.complexityBook.Genetics.Robot;
 import java.io.File;
 import java.net.MalformedURLException;
 
+import edu.zj.complexityBook.utils.UIGadgets;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -31,9 +32,9 @@ public class RobotProblemUI extends Application {
 	GraphicsContext robotGc = robotCanvas.getGraphicsContext2D();
 	Canvas spaceCanvas = new Canvas(CELL_SIZE * problem.getWidth(), CELL_SIZE * problem.getHeight());
 	GraphicsContext spaceGc = spaceCanvas.getGraphicsContext2D();
-	Image removedImage = image("resources/pictures/1498922537_flat-style-circle-delete-trash.png");
-	Image robotImage = image("resources/pictures/robot-icon-30512.png");
-	Image trashImage = image("resources/pictures/Paper-icon.png");
+	Image removedImage = UIGadgets.image("resources/pictures/1498922537_flat-style-circle-delete-trash.png");
+	Image robotImage = UIGadgets.image("resources/pictures/robot-icon-30512.png");
+	Image trashImage = UIGadgets.image("resources/pictures/Paper-icon.png");
 	TextField scoreField = new TextField("0");
 	TextField stepField = new TextField("0");
 	int step = 0;
@@ -82,15 +83,15 @@ public class RobotProblemUI extends Application {
 		return spacePane;
 	}
 
-	public static Image image(String path) {
-		try {
-			return new Image(new File(path).toURI().toURL().toString());
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	public static Image image(String path) {
+//		try {
+//			return new Image(new File(path).toURI().toURL().toString());
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 	public FlowPane commandPane() {
 		FlowPane commandPane = new FlowPane();
@@ -153,7 +154,7 @@ public class RobotProblemUI extends Application {
 	}
 
 	public static Button imageButton(String path) {
-		ImageView icon = new ImageView(image(path));
+		ImageView icon = new ImageView(UIGadgets.image(path));
 		icon.setFitHeight(30);
 		icon.setFitWidth(30);
 		return new Button(null, icon);
