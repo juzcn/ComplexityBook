@@ -7,7 +7,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public abstract class GridView<T, N extends Number & Comparable<N>, CA extends AbstractGrid<T, N>> extends GridPane {
+public abstract class GridView<T, N extends Number & Comparable<N>, CA extends AbstractGrid<T, N>> 
+extends GridPane implements I_GridView {
 	private CA data;
 	private int rowCount, columnCount;
 	public Color BACKGROUND_COLOR = Color.WHITE;

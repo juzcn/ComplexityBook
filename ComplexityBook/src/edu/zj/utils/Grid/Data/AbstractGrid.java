@@ -55,10 +55,6 @@ public abstract class AbstractGrid<T, N extends Number & Comparable<N>> {
 
 	public abstract void setData(N row, N column, T data);
 
-//	public abstract T getData(GridPos<N> pos);
-
-//	public abstract void setData(GridPos<N> pos, T data);
-
 	public abstract Set<Element> get(T value);
 
 	public Element getElement(N row, N column) {

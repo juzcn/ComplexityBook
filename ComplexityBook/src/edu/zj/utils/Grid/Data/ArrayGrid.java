@@ -3,8 +3,8 @@ package edu.zj.utils.Grid.Data;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Grid<T> extends AbstractGrid<T, Integer> {
-	public Grid(Integer rowSize, Integer columnSize, boolean wrapped) {
+public class ArrayGrid<T> extends AbstractGrid<T, Integer> {
+	public ArrayGrid(Integer rowSize, Integer columnSize, boolean wrapped) {
 		super(rowSize, columnSize, wrapped);
 		data = new Object[rowSize][columnSize];
 		System.out.println("Wrapped "+wrapped);
@@ -13,7 +13,7 @@ public class Grid<T> extends AbstractGrid<T, Integer> {
 
 	private final Object data[][];
 
-	public Grid(Integer rowSize, Integer columnSize) {
+	public ArrayGrid(Integer rowSize, Integer columnSize) {
 		this(rowSize, columnSize,false);
 	}
 
