@@ -3,7 +3,6 @@ package edu.zj.complexityBook.CellularAutomata.GameOfLife;
 import java.io.File;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
-
 import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolCell.State;
 import edu.zj.complexityBook.utils.Gadgets;
 import javafx.application.Application;
@@ -19,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GolUI extends Application {
@@ -28,7 +28,7 @@ public class GolUI extends Application {
 	private int step = 0;
 	private String beginRow, beginColumn;
 	BorderPane center = new BorderPane();
-	private GolData data;
+	private GolMain caMain;
 	GolView view;
 	TextField intervalTimeField = new TextField("500");
 
@@ -67,49 +67,35 @@ public class GolUI extends Application {
 		MenuItem blinkerItem = new MenuItem("Blinker");
 		MenuItem gliderItem = new MenuItem("Glider");
 		blockItem.setOnAction(e -> {
-			System.out.println("Block clicked");
-			view = new GolView(4, 4, 30);
-			data = new GolData(State.dead);
-			data.setData(new BigInteger("1"), new BigInteger("1"),State.alive);
-			data.setData(new BigInteger("1"), new BigInteger("2"),State.alive);
-			data.setData(new BigInteger("2"), new BigInteger("1"),State.alive);
-			data.setData( new BigInteger("2"), new BigInteger("2"),State.alive);
-			view.loadData(data);
+			caMain = new GolMain(Integer.parseInt(this.maxStepField.getText()));
+			caMain.getCaGrid().set(1, 1, State.alive);
+			caMain.getCaGrid().set(1, 2, State.alive);
+			caMain.getCaGrid().set(2, 1, State.alive);
+			caMain.getCaGrid().set(2, 2, State.alive);
+			view = new GolView(4, 4, 30, Color.BLACK, caMain.getCaGrid());
 			view.show();
 			center.setCenter(view);
 
 		});
 		blinkerItem.setOnAction(e -> {
-			System.out.println("Block clicked");
-			view = new GolView(5, 5, 30);
-			data = new GolData(State.dead);
-			data.setData(new BigInteger("2"), new BigInteger("1"),State.alive);
-			data.setData(new BigInteger("2"), new BigInteger("2"),State.alive);
-			data.setData(new BigInteger("2"), new BigInteger("3"),State.alive);
-			beginRow = "0";
-			beginColumn = "0";
-			view.loadData(data);
+			caMain = new GolMain(Integer.parseInt(this.maxStepField.getText()));
+			caMain.getCaGrid().set(2, 1, State.alive);
+			caMain.getCaGrid().set(2, 2, State.alive);
+			caMain.getCaGrid().set(2, 3, State.alive);
+			view = new GolView(5, 5, 30, Color.BLACK, caMain.getCaGrid());
 			view.show();
-
 			center.setCenter(view);
-
 		});
 		gliderItem.setOnAction(e -> {
-			System.out.println("Block clicked");
-			view = new GolView(6, 6, 30);
-			data = new GolData(State.dead);
-			data.setData(new BigInteger("1"), new BigInteger("3"),State.alive);
-			data.setData(new BigInteger("2"), new BigInteger("1"),State.alive);
-			data.setData(new BigInteger("2"), new BigInteger("3"),State.alive);
-			data.setData(new BigInteger("3"), new BigInteger("2"),State.alive);
-			data.setData(new BigInteger("3"), new BigInteger("3"),State.alive);
-			beginRow = "0";
-			beginColumn = "0";
-			view.loadData(data);
+			caMain = new GolMain(Integer.parseInt(this.maxStepField.getText()));
+			caMain.getCaGrid().set(1, 3, State.alive);
+			caMain.getCaGrid().set(2, 1, State.alive);
+			caMain.getCaGrid().set(2, 3, State.alive);
+			caMain.getCaGrid().set(3, 2, State.alive);
+			caMain.getCaGrid().set(3, 3, State.alive);
+			view = new GolView(6, 6, 30, Color.BLACK, caMain.getCaGrid());
 			view.show();
-
 			center.setCenter(view);
-
 		});
 		stillMenu.getItems().add(blockItem);
 
@@ -117,9 +103,11 @@ public class GolUI extends Application {
 		Menu spaceshipsMenu = new Menu("Spaceships");
 		oscillatorsMenu.getItems().add(blinkerItem);
 		spaceshipsMenu.getItems().add(gliderItem);
-		menuBar.getMenus().addAll(stillMenu, oscillatorsMenu,spaceshipsMenu);
+		menuBar.getMenus().addAll(stillMenu, oscillatorsMenu, spaceshipsMenu);
 		return menuBar;
 	}
+
+	TextField maxStepField = new TextField("300");
 
 	public FlowPane commandPane() {
 		FlowPane commandPane = new FlowPane();
@@ -137,14 +125,14 @@ public class GolUI extends Application {
 		Label stepLabel = new Label(" ²½ ");
 
 		stepField.setPrefColumnCount(3);
-		commandPane.getChildren().addAll(startButton, stopButton,stepButton, maxStepLabel, maxStepField, intervalTimeLabel,
-				intervalTimeField, stepLabel, stepField);
-		
-		Gadgets<Thread> threadWrapper=new Gadgets<>(); 
+		commandPane.getChildren().addAll(startButton, stopButton, stepButton, maxStepLabel, maxStepField,
+				intervalTimeLabel, intervalTimeField, stepLabel, stepField);
+
+		Gadgets<Thread> threadWrapper = new Gadgets<>();
 		// task and thread are ONE SHOT
 		startButton.setOnAction((e) -> {
 			stopButton.setDisable(false);
-			if (threadWrapper.getValue()!=null) { 
+			if (threadWrapper.getValue() != null) {
 				threadWrapper.getValue().interrupt();
 				try {
 					threadWrapper.getValue().join();
@@ -156,7 +144,7 @@ public class GolUI extends Application {
 			Task<Void> task = new Task<Void>() {
 				@Override
 				protected Void call() throws Exception {
-					System.out.println("Thread started cuurent step = "+step);
+					System.out.println("Thread started cuurent step = " + step);
 					while (step < Integer.parseInt(maxStepField.getText())) {
 						stepRun();
 						Thread.sleep(Long.parseLong(intervalTimeField.getText()));
@@ -166,10 +154,10 @@ public class GolUI extends Application {
 				}
 
 			};
-			Thread thread=new Thread(task);
+			Thread thread = new Thread(task);
 			threadWrapper.setValue(thread);
-//			thread.setDaemon(true);
-			System.out.println("Started thread "+thread);
+			// thread.setDaemon(true);
+			System.out.println("Started thread " + thread);
 			thread.start();
 		});
 
@@ -178,7 +166,7 @@ public class GolUI extends Application {
 		});
 
 		stopButton.setOnAction((e) -> {
-			if (threadWrapper.getValue()!=null) 
+			if (threadWrapper.getValue() != null)
 				threadWrapper.getValue().interrupt();
 			threadWrapper.setValue(null);
 		});
@@ -189,9 +177,8 @@ public class GolUI extends Application {
 	public void stepRun() {
 		step++;
 		stepField.setText(Integer.toString(step));
-		data.evaluate();
-		data.update();
-		view.show();
+		caMain.stepRun();
+		view.redraw();
 	}
 
 	public static Button imageButton(String path) {
