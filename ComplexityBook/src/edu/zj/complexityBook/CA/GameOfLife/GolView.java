@@ -1,6 +1,6 @@
-package edu.zj.complexityBook.CellularAutomata.GameOfLife;
+package edu.zj.complexityBook.CA.GameOfLife;
 
-import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolCell.State;
+import edu.zj.complexityBook.CA.GameOfLife.GolCell.State;
 import edu.zj.utils.Grid.GridViewPane;
 import edu.zj.utils.Grid.MapGrid;
 import javafx.scene.paint.Color;

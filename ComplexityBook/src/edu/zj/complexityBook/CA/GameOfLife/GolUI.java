@@ -1,9 +1,10 @@
-package edu.zj.complexityBook.CellularAutomata.GameOfLife;
+package edu.zj.complexityBook.CA.GameOfLife;
 
 import java.io.File;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
-import edu.zj.complexityBook.CellularAutomata.GameOfLife.GolCell.State;
+
+import edu.zj.complexityBook.CA.GameOfLife.GolCell.State;
 import edu.zj.complexityBook.utils.Gadgets;
 import javafx.application.Application;
 import javafx.concurrent.Task;
