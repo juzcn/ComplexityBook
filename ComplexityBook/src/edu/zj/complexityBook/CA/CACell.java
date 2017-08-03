@@ -2,7 +2,7 @@ package edu.zj.complexityBook.CA;
 
 import edu.zj.utils.Grid.Grid;
 
-public abstract class CACell<S extends Enum<S>, G extends Grid<S>> {
+public abstract class CACell<S, G extends Grid<S>> {
 	protected G caGrid;
 	protected int row;
 	protected int column;

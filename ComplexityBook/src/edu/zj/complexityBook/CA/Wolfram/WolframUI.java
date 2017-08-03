@@ -1,4 +1,4 @@
-package edu.zj.complexityBook.CellularAutomata.Wolfram;
+package edu.zj.complexityBook.CA.Wolfram;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -23,12 +23,12 @@ public class WolframUI extends Application {
 	private TextField stepField = new TextField("0");;
 	private int step = 0;
 	BorderPane center = new BorderPane();
-	private WolframData data;
+	private WolframMain caMain;
 	WolframView view;
 	TextField intervalTimeField = new TextField("500");
-	TextField sizeField = new TextField("200");
+	TextField sizeField = new TextField("250");
 	TextField ruleField = new TextField("110");
-	TextField cellSizeField = new TextField("10");
+	TextField cellSizeField = new TextField("5");
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -54,6 +54,7 @@ public class WolframUI extends Application {
 	}
 
 	VBox vbox;
+	TextField maxStepField = new TextField("300");
 
 	public FlowPane commandPane() {
 		FlowPane commandPane = new FlowPane();
@@ -64,7 +65,6 @@ public class WolframUI extends Application {
 
 		stopButton.setDisable(true);
 		Label maxStepLabel = new Label("×Ü²½Êý ");
-		TextField maxStepField = new TextField("300");
 		maxStepField.setPrefColumnCount(3);
 
 		maxStepField.setEditable(false);
@@ -90,11 +90,11 @@ public class WolframUI extends Application {
 		Gadgets<Thread> threadWrapper = new Gadgets<>();
 		setupButton.setOnAction(e -> {
 			vbox=new VBox();
+			caMain = new WolframMain(Integer.parseInt(maxStepField.getText()),
+					Integer.parseInt(sizeField.getText()), Integer.parseInt(ruleField.getText()));
 			
-			view = new WolframView(Integer.parseInt(sizeField.getText()), Integer.parseInt(cellSizeField.getText()));
-			vbox.getChildren().add(view);
-			data = new WolframData(Integer.parseInt(sizeField.getText()), Integer.parseInt(ruleField.getText()));
-			view.loadData(data);
+			view = new WolframView(Integer.parseInt(sizeField.getText()), Integer.parseInt(cellSizeField.getText()),caMain.getCaGrid());
+			vbox.getChildren().add(view.getView());
 			view.show();
 			center.setCenter(new ScrollPane(vbox));
 
@@ -147,14 +147,11 @@ public class WolframUI extends Application {
 
 	public void stepRun() {
 		System.out.println("Step run");
-		step++;
-		data.evaluate(false);
-		data.update();
+		caMain.stepRun();
 		Platform.runLater(() -> {
 			stepField.setText(Integer.toString(step));
-			view = new WolframView(Integer.parseInt(sizeField.getText()),Integer.parseInt(cellSizeField.getText()));
-			view.loadData(data);
-			vbox.getChildren().add(view);
+			view = new WolframView(Integer.parseInt(sizeField.getText()),Integer.parseInt(cellSizeField.getText()),caMain.getCaGrid());
+			vbox.getChildren().add(view.getView());
 			view.show();
 		});		
 	}

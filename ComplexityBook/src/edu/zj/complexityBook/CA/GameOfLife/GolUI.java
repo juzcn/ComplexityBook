@@ -30,7 +30,7 @@ public class GolUI extends Application {
 	private String beginRow, beginColumn;
 	BorderPane center = new BorderPane();
 	private GolMain caMain;
-	GolView view;
+	GolView display;
 	TextField intervalTimeField = new TextField("500");
 
 	@Override
@@ -73,9 +73,9 @@ public class GolUI extends Application {
 			caMain.getCaGrid().set(1, 2, State.alive);
 			caMain.getCaGrid().set(2, 1, State.alive);
 			caMain.getCaGrid().set(2, 2, State.alive);
-			view = new GolView(4, 4, 30, Color.BLACK, caMain.getCaGrid());
-			view.show();
-			center.setCenter(view);
+			display = new GolView(4, 4, 30, Color.BLACK, caMain.getCaGrid());
+			display.show();
+			center.setCenter(display.getView());
 
 		});
 		blinkerItem.setOnAction(e -> {
@@ -83,9 +83,9 @@ public class GolUI extends Application {
 			caMain.getCaGrid().set(2, 1, State.alive);
 			caMain.getCaGrid().set(2, 2, State.alive);
 			caMain.getCaGrid().set(2, 3, State.alive);
-			view = new GolView(5, 5, 30, Color.BLACK, caMain.getCaGrid());
-			view.show();
-			center.setCenter(view);
+			display = new GolView(5, 5, 30, Color.BLACK, caMain.getCaGrid());
+			display.show();
+			center.setCenter(display.getView());
 		});
 		gliderItem.setOnAction(e -> {
 			caMain = new GolMain(Integer.parseInt(this.maxStepField.getText()));
@@ -94,9 +94,9 @@ public class GolUI extends Application {
 			caMain.getCaGrid().set(2, 3, State.alive);
 			caMain.getCaGrid().set(3, 2, State.alive);
 			caMain.getCaGrid().set(3, 3, State.alive);
-			view = new GolView(6, 6, 30, Color.BLACK, caMain.getCaGrid());
-			view.show();
-			center.setCenter(view);
+			display = new GolView(6, 6, 30, Color.BLACK, caMain.getCaGrid());
+			display.show();
+			center.setCenter(display.getView());
 		});
 		stillMenu.getItems().add(blockItem);
 
@@ -179,7 +179,7 @@ public class GolUI extends Application {
 		step++;
 		stepField.setText(Integer.toString(step));
 		caMain.stepRun();
-		view.redraw();
+		display.redraw();
 	}
 
 	public static Button imageButton(String path) {
