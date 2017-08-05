@@ -3,7 +3,7 @@ package edu.zj.complexityBook.CA.Wolfram;
 import java.io.File;
 import java.net.MalformedURLException;
 
-import edu.zj.complexityBook.utils.Gadgets;
+import edu.zj.complexityBook.utils.Wrapper;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -87,7 +87,7 @@ public class WolframUI extends Application {
 				intervalTimeLabel, intervalTimeField, stepLabel, stepField, setupButton, sizeLabel, sizeField,
 				ruleLabel, ruleField,cellSizeLabel,cellSizeField);
 
-		Gadgets<Thread> threadWrapper = new Gadgets<>();
+		Wrapper<Thread> threadWrapper = new Wrapper<>();
 		setupButton.setOnAction(e -> {
 			vbox=new VBox();
 			caMain = new WolframMain(Integer.parseInt(maxStepField.getText()),
