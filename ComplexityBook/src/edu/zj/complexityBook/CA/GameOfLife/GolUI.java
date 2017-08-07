@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 
 import edu.zj.complexityBook.CA.GameOfLife.GolCell.State;
-import edu.zj.complexityBook.utils.Wrapper;
+import edu.zj.utils.Wrapper;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -75,7 +75,7 @@ public class GolUI extends Application {
 			caMain.getCaGrid().set(2, 2, State.alive);
 			display = new GolView(4, 4, 30, Color.BLACK, caMain.getCaGrid());
 			display.show();
-			center.setCenter(display.getView());
+			center.setCenter(display.getNode());
 
 		});
 		blinkerItem.setOnAction(e -> {
@@ -85,7 +85,7 @@ public class GolUI extends Application {
 			caMain.getCaGrid().set(2, 3, State.alive);
 			display = new GolView(5, 5, 30, Color.BLACK, caMain.getCaGrid());
 			display.show();
-			center.setCenter(display.getView());
+			center.setCenter(display.getNode());
 		});
 		gliderItem.setOnAction(e -> {
 			caMain = new GolMain(Integer.parseInt(this.maxStepField.getText()));
@@ -96,7 +96,7 @@ public class GolUI extends Application {
 			caMain.getCaGrid().set(3, 3, State.alive);
 			display = new GolView(6, 6, 30, Color.BLACK, caMain.getCaGrid());
 			display.show();
-			center.setCenter(display.getView());
+			center.setCenter(display.getNode());
 		});
 		stillMenu.getItems().add(blockItem);
 

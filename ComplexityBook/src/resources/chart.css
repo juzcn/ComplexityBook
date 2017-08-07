@@ -2,3 +2,7 @@
     -fx-background-radius: 1px ;
     -fx-padding: 1px ;
 }
+.button
+ {
+    -fx-background-color: transparent;
+ }

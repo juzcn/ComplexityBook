@@ -1,8 +1,8 @@
 package edu.zj.complexityBook.CA.Wolfram;
 
 import edu.zj.complexityBook.CA.Wolfram.WolframCell.State;
-import edu.zj.utils.Grid.ArrayGrid;
-import edu.zj.utils.Grid.GridDisplayCanvas;
+import edu.zj.utils.Grid.Model.ArrayGrid;
+import edu.zj.utils.Grid.View.GridDisplayCanvas;
 import javafx.scene.paint.Color;
 
 //public class WolframView extends CAGridView<State,Integer,WolframData> {

@@ -1,4 +1,4 @@
-package edu.zj.complexityBook.utils;
+package edu.zj.utils;
 
 public class ArrayIndexMapping {
 	private int[] dimensions;

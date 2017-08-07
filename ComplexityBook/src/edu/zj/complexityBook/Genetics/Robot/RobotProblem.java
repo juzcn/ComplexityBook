@@ -5,7 +5,7 @@ import java.util.Random;
 import edu.zj.complexityBook.Genetics.ChromosomeFactory;
 import edu.zj.complexityBook.Genetics.GeneticAlgorithm;
 import edu.zj.complexityBook.Genetics.Problem;
-import edu.zj.complexityBook.utils.ArrayIndexMapping;
+import edu.zj.utils.ArrayIndexMapping;
 
 public class RobotProblem extends Problem {
 	public static long RANDOM_SEED = 1000L;

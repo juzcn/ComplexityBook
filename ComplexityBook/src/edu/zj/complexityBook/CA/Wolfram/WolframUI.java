@@ -3,7 +3,7 @@ package edu.zj.complexityBook.CA.Wolfram;
 import java.io.File;
 import java.net.MalformedURLException;
 
-import edu.zj.complexityBook.utils.Wrapper;
+import edu.zj.utils.Wrapper;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -94,7 +94,7 @@ public class WolframUI extends Application {
 					Integer.parseInt(sizeField.getText()), Integer.parseInt(ruleField.getText()));
 			
 			view = new WolframView(Integer.parseInt(sizeField.getText()), Integer.parseInt(cellSizeField.getText()),caMain.getCaGrid());
-			vbox.getChildren().add(view.getView());
+			vbox.getChildren().add(view.getNode());
 			view.show();
 			center.setCenter(new ScrollPane(vbox));
 
@@ -151,7 +151,7 @@ public class WolframUI extends Application {
 		Platform.runLater(() -> {
 			stepField.setText(Integer.toString(step));
 			view = new WolframView(Integer.parseInt(sizeField.getText()),Integer.parseInt(cellSizeField.getText()),caMain.getCaGrid());
-			vbox.getChildren().add(view.getView());
+			vbox.getChildren().add(view.getNode());
 			view.show();
 		});		
 	}

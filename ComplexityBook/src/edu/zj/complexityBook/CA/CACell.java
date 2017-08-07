@@ -3,10 +3,11 @@ package edu.zj.complexityBook.CA;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.zj.utils.Grid.Grid;
-import edu.zj.utils.Grid.Grid.Pos;
+import edu.zj.utils.Grid.Model.Grid;
+import edu.zj.utils.Grid.Model.GridPos;
+import edu.zj.utils.Grid.Model.IGridPos;
 
-public abstract class CACell<S, M extends CAMain<S, ? extends Grid<S>, ? extends CACell<S, M>>> {
+public abstract class CACell<S, M extends CAMain<S, ? extends Grid<S>, ? extends CACell<S, M>>> implements IGridPos {
 	protected M caMain;
 	protected int row;
 	protected int column;
@@ -35,7 +36,7 @@ public abstract class CACell<S, M extends CAMain<S, ? extends Grid<S>, ? extends
 		this.state = caMain.getCaGrid().get(row, column);
 	}
 
-	public CACell(M caMain, Pos pos) {
+	public CACell(M caMain, IGridPos pos) {
 		this.caMain = caMain;
 		this.row = pos.getRow();
 		this.column = pos.getColumn();
@@ -47,10 +48,10 @@ public abstract class CACell<S, M extends CAMain<S, ? extends Grid<S>, ? extends
 	}
 
 	public List<CACell<S, M>> neighbs4() {
-		List<Pos> pos = caMain.getCaGrid().neighbs4(row, column);
+		List<GridPos> pos = caMain.getCaGrid().neighbs4(row, column);
 		List<CACell<S, M>> list = new ArrayList<>();
 		CACell<S, M> cell;
-		for (Pos p : pos) {
+		for (IGridPos p : pos) {
 			cell = caMain.getCellMap().get(p);
 			if (cell != null)
 				list.add(cell);
