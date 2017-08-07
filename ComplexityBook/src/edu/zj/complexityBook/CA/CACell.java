@@ -7,7 +7,7 @@ import edu.zj.utils.Grid.Model.Grid;
 import edu.zj.utils.Grid.Model.GridPos;
 import edu.zj.utils.Grid.Model.IGridPos;
 
-public abstract class CACell<S, M extends CAMain<S, ? extends Grid<S>, ? extends CACell<S, M>>> implements IGridPos {
+public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extends CACell<S, M>>> implements IGridPos {
 	protected M caMain;
 	protected int row;
 	protected int column;

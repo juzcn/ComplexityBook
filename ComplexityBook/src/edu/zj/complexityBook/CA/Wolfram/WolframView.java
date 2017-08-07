@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 
 //public class WolframView extends CAGridView<State,Integer,WolframData> {
 public class WolframView extends GridDisplayCanvas<WolframCell.State, ArrayGrid<WolframCell.State>> {
-	public WolframView(WolframMain model, GridViewParams params ) {
+	public WolframView(WolframModel model, GridViewParams params ) {
 		super(1, model.getColumnCount(), params.getCellSize(), Color.BLACK, model.getCaGrid());
 		VBox vbox = new VBox();
 		vbox.setPrefHeight(600);
