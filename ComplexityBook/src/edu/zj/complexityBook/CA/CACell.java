@@ -7,7 +7,7 @@ import edu.zj.utils.Grid.Model.Grid;
 import edu.zj.utils.Grid.Model.GridPos;
 
 public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extends CACell<S, M>>>  {
-	protected M caMain;
+	private M caModel;
 	protected int row;
 	protected int column;
 	protected S state;
@@ -22,21 +22,21 @@ public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extend
 	}
 
 	public CACell(M caMain, int row, int column, S state) {
-		this.caMain = caMain;
+		this.caModel = caMain;
 		this.row = row;
 		this.column = column;
 		this.state = state;
 	}
 
 	public CACell(M caMain, int row, int column) {
-		this.caMain = caMain;
+		this.caModel = caMain;
 		this.row = row;
 		this.column = column;
 		this.state = caMain.getCaGrid().get(row, column);
 	}
 
 	public CACell(M caMain, GridPos pos) {
-		this.caMain = caMain;
+		this.caModel = caMain;
 		this.row = pos.getRow();
 		this.column = pos.getColumn();
 		this.state = caMain.getCaGrid().get(pos);
@@ -47,11 +47,11 @@ public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extend
 	}
 
 	public List<CACell<S, M>> neighbs4() {
-		List<GridPos> pos = caMain.getCaGrid().neighbs4(row, column);
+		List<GridPos> pos = caModel.getCaGrid().neighbs4(row, column);
 		List<CACell<S, M>> list = new ArrayList<>();
 		CACell<S, M> cell;
 		for (GridPos p : pos) {
-			cell = caMain.getCellMap().get(p);
+			cell = caModel.getCellMap().get(p);
 			if (cell != null)
 				list.add(cell);
 		}
@@ -82,10 +82,14 @@ public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extend
 
 	public void update() {
 		if (nextState != null) {
-			caMain.getCaGrid().set(row, column, nextState);
+			caModel.getCaGrid().set(row, column, nextState);
 			state = nextState;
 			nextState = null;
 		}
+	}
+
+	public M getCaModel() {
+		return caModel;
 	}
 
 }

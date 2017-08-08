@@ -8,8 +8,9 @@ import javafx.scene.paint.Color;
 public class GolView extends GridDisplayPane<GolCell.State, MapGrid<GolCell.State>> {
 
 
-	public GolView(int rowCount, int columnCount, double cellSize, Color borderColor, MapGrid<State> grid) {
-		super(rowCount, columnCount, cellSize, borderColor, grid);
+	public GolView(GolModel model,GolConfig.ViewParams params) {
+		super(model.getRowCount(), model.getColumnCount(), params.getCellSize(), params.getBorderColor(),model.getCaGrid());
+		this.setTitle("生命游戏变化");
 	}
 
 	@Override
