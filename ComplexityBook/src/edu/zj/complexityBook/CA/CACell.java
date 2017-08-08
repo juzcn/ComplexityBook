@@ -5,9 +5,8 @@ import java.util.List;
 
 import edu.zj.utils.Grid.Model.Grid;
 import edu.zj.utils.Grid.Model.GridPos;
-import edu.zj.utils.Grid.Model.IGridPos;
 
-public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extends CACell<S, M>>> implements IGridPos {
+public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extends CACell<S, M>>>  {
 	protected M caMain;
 	protected int row;
 	protected int column;
@@ -36,7 +35,7 @@ public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extend
 		this.state = caMain.getCaGrid().get(row, column);
 	}
 
-	public CACell(M caMain, IGridPos pos) {
+	public CACell(M caMain, GridPos pos) {
 		this.caMain = caMain;
 		this.row = pos.getRow();
 		this.column = pos.getColumn();
@@ -51,7 +50,7 @@ public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extend
 		List<GridPos> pos = caMain.getCaGrid().neighbs4(row, column);
 		List<CACell<S, M>> list = new ArrayList<>();
 		CACell<S, M> cell;
-		for (IGridPos p : pos) {
+		for (GridPos p : pos) {
 			cell = caMain.getCellMap().get(p);
 			if (cell != null)
 				list.add(cell);

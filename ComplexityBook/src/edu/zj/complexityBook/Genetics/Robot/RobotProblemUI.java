@@ -1,8 +1,5 @@
 package edu.zj.complexityBook.Genetics.Robot;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
 import edu.zj.utils.UIGadgets;
 import javafx.application.Application;
 import javafx.geometry.Pos;

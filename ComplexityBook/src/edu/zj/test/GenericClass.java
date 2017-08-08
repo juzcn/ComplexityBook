@@ -24,14 +24,15 @@ public class GenericClass<T  extends String,S>
 		}
     	return null;
     }
-    private void findTypeArguments(Type t) {
+    @SuppressWarnings("unchecked")
+	private void findTypeArguments(Type t) {
     	if (t==null) return;
         if (t instanceof ParameterizedType) {
             Type[] typeArgs = ((ParameterizedType) t).getActualTypeArguments();
             realType = (Class<T>) typeArgs[0];
         	System.out.println("Type = "+typeArgs[1]);
         } else {
-            Class c = (Class) t;
+            Class<?> c = (Class<?>) t;
             findTypeArguments(c.getGenericSuperclass());
         }
     }

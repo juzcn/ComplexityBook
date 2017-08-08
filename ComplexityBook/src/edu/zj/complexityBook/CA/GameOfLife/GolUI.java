@@ -1,7 +1,6 @@
 package edu.zj.complexityBook.CA.GameOfLife;
 
 import java.io.File;
-import java.math.BigInteger;
 import java.net.MalformedURLException;
 
 import edu.zj.complexityBook.CA.GameOfLife.GolCell.State;

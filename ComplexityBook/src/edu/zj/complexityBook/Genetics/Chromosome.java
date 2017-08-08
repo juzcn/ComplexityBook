@@ -1,8 +1,6 @@
 package edu.zj.complexityBook.Genetics;
 
 import java.util.Random;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public abstract class Chromosome implements Comparable<Chromosome> {
 	public static long RANDOM_SEED = 1000L;
