@@ -86,7 +86,7 @@ public class BifurcationDiagram extends Application {
 
 		chart.setData(data);
 		chart.setLegendVisible(false);
-		chart.setId("bifurcation-diagram");
+		chart.setId("small-symbol");
 		chart.getStylesheets().add("resources/chart.css");
 
 		runButton.setOnAction((e) -> {
