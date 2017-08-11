@@ -1,11 +1,10 @@
 package edu.zj.complexityBook.CA.GameOfLife;
 
-import edu.zj.complexityBook.CA.GameOfLife.GolCell.State;
-import edu.zj.utils.Grid.Model.MapGrid;
+import edu.zj.utils.Grid.Model.Grid;
 import edu.zj.utils.Grid.View.GridDisplayPane;
 import javafx.scene.paint.Color;
 
-public class GolView extends GridDisplayPane<GolCell.State, MapGrid<GolCell.State>> {
+public class GolView extends GridDisplayPane<Integer> {
 
 
 	public GolView(GolModel model,GolConfig.ViewParams params) {
@@ -14,8 +13,8 @@ public class GolView extends GridDisplayPane<GolCell.State, MapGrid<GolCell.Stat
 	}
 
 	@Override
-	public Color cellFill(State data) {
-		if (data == GolCell.State.alive)
+	public Color cellFill(Integer data) {
+		if (data == 1)
 			return Color.BLACK;
 		else
 			return Color.WHITE;

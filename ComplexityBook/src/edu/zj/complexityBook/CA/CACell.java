@@ -3,14 +3,11 @@ package edu.zj.complexityBook.CA;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.zj.utils.Grid.Model.Grid;
 import edu.zj.utils.Grid.Model.GridPos;
 
-public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extends CACell<S, M>>>  {
-	private M caModel;
-	protected int row;
-	protected int column;
-	protected S state;
+public abstract class CACell<S, M extends CAModel<S, ? extends CACell<S, M>>> {
+	private final GridPos pos;
+	private final M model;
 	protected S nextState;
 
 	public S getNextState() {
@@ -21,75 +18,46 @@ public abstract class CACell<S, M extends CAModel<S, ? extends Grid<S>, ? extend
 		this.nextState = nextState;
 	}
 
-	public CACell(M caMain, int row, int column, S state) {
-		this.caModel = caMain;
-		this.row = row;
-		this.column = column;
-		this.state = state;
-	}
-
-	public CACell(M caMain, int row, int column) {
-		this.caModel = caMain;
-		this.row = row;
-		this.column = column;
-		this.state = caMain.getCaGrid().get(row, column);
-	}
-
-	public CACell(M caMain, GridPos pos) {
-		this.caModel = caMain;
-		this.row = pos.getRow();
-		this.column = pos.getColumn();
-		this.state = caMain.getCaGrid().get(pos);
+	public CACell(M model, GridPos pos) {
+		this.model = model;
+		this.pos = pos;
 	}
 
 	public S getState() {
-		return state;
+		return this.getModel().getCaGrid().get(pos);
 	}
 
 	public List<CACell<S, M>> neighbs4() {
-		List<GridPos> pos = caModel.getCaGrid().neighbs4(row, column);
+		List<GridPos> neighbs = model.getCaGrid().neighbs4(this.pos);
 		List<CACell<S, M>> list = new ArrayList<>();
 		CACell<S, M> cell;
-		for (GridPos p : pos) {
-			cell = caModel.getCellMap().get(p);
+		for (GridPos p : neighbs) {
+			cell = model.getCellMap().get(p);
 			if (cell != null)
 				list.add(cell);
 		}
 		return list;
 	}
 
-	public int getRow() {
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	public int getColumn() {
-		return column;
-	}
-
-	public void setColumn(int column) {
-		this.column = column;
-	}
-
 	public void setState(S state) {
-		this.state = state;
+		this.getModel().getCaGrid().set(pos, state);
 	}
 
 	public abstract void evaluate();
 
-	public void update() {
+	public final void update() {
 		if (nextState != null) {
-			caModel.getCaGrid().set(row, column, nextState);
-			state = nextState;
+			model.getCaGrid().set(pos, nextState);
 			nextState = null;
 		}
 	}
 
-	public M getCaModel() {
-		return caModel;
+	public M getModel() {
+		return model;
+	}
+
+	public GridPos getPos() {
+		return pos;
 	}
 
 }
