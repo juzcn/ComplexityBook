@@ -8,7 +8,7 @@ public class GolView extends GridDisplayPane<Integer> {
 
 
 	public GolView(GolModel model,GolConfig.ViewParams params) {
-		super(model.getRowCount(), model.getColumnCount(), params.getCellSize(), params.getBorderColor(),model.getCaGrid());
+		super(model.getRowCount(), model.getColumnCount(), params.getCellSize(), params.getBorderColor(),model.getGrid());
 		this.setTitle("生命游戏变化");
 	}
 

@@ -1,6 +1,5 @@
 package edu.zj.complexityBook.CA.Wolfram;
 
-import edu.zj.complexityBook.CA.Wolfram.WolframCell.State;
 import edu.zj.utils.Grid.View.GridDisplayCanvas;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -9,9 +8,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 //public class WolframView extends CAGridView<State,Integer,WolframData> {
-public class WolframView extends GridDisplayCanvas<WolframCell.State> {
+public class WolframView extends GridDisplayCanvas<WolframModel.State> {
 	public WolframView(WolframModel model, WolframConfig.ViewParams params ) {
-		super(1, model.getColumnCount(), params.getCellSize(), Color.BLACK, model.getCaGrid());
+		super(1, model.getColumnCount(), params.getCellSize(), Color.BLACK, model.getGrid());
 		VBox vbox = new VBox();
 		vbox.setPrefHeight(600);
 		vbox.getChildren().add(super.getNode());
@@ -21,8 +20,8 @@ public class WolframView extends GridDisplayCanvas<WolframCell.State> {
 
 	
 	@Override
-	public Color cellFill(State data) {
-		if (data == WolframCell.State.ON)
+	public Color cellFill(WolframModel.State data) {
+		if (data == WolframModel.State.ON)
 			return Color.BLACK;
 		return Color.WHITE;
 	}
