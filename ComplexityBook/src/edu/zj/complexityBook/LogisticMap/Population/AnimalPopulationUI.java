@@ -1,4 +1,4 @@
-package edu.zj.complexityBook.LogisticMap;
+package edu.zj.complexityBook.LogisticMap.Population;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;

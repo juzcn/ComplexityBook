@@ -1,6 +1,9 @@
-package edu.zj.complexityBook.LogisticMap;
+package edu.zj.complexityBook.LogisticMap.Population;
 
 import java.math.BigDecimal;
+
+import edu.zj.complexityBook.LogisticMap.LogisticMap;
+
 
 public class AnimalPopulation extends LogisticMap {
 	public BigDecimal k;

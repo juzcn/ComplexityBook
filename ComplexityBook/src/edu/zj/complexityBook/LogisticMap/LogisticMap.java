@@ -5,22 +5,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class LogisticMap extends FirstOrderDifferenceEquation<BigDecimal> {
+public class LogisticMap {
 	protected final BigDecimal r;
+	private BigDecimal x0;
 	protected final int scale;
 	public final static BigDecimal ONE = new BigDecimal(1);
 	public final static BigDecimal ZERO = new BigDecimal(0);
 
-	public LogisticMap(BigDecimal r, int scale) {
+	public LogisticMap(BigDecimal r, BigDecimal x0, int scale) {
 		this.r = r;
+		this.x0 = x0;
 		this.scale = scale;
+	}
+
+	public LogisticMap(BigDecimal r, int scale) {
+		this(r,null,scale);
 	}
 
 	public LogisticMap(String r, int scale) {
 		this(new BigDecimal(r), scale);
 	}
 
-	@Override
 	public BigDecimal next(BigDecimal current) {
 		return r.multiply(ONE.subtract(current)).multiply(current).setScale(scale, BigDecimal.ROUND_HALF_EVEN);
 	}
@@ -29,7 +34,6 @@ public class LogisticMap extends FirstOrderDifferenceEquation<BigDecimal> {
 		iterate(new BigDecimal(initial), max, handler);
 	}
 
-	@Override
 	public void iterate(BigDecimal initial, int max, BiConsumer<Integer, BigDecimal> handler) {
 		handler.accept(0, initial);
 		for (int i = 1; i <= max; i++) {
@@ -119,6 +123,14 @@ public class LogisticMap extends FirstOrderDifferenceEquation<BigDecimal> {
 			}
 		}
 
+	}
+
+	public BigDecimal getX0() {
+		return x0;
+	}
+
+	public BigDecimal getR() {
+		return r;
 	}
 
 }

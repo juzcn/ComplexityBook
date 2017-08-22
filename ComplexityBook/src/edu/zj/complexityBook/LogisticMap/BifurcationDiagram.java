@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
@@ -72,8 +73,10 @@ public class BifurcationDiagram extends Application {
 		yAxis.setUpperBound(1);
 		yAxis.setTickUnit(0.1);
 		ScatterChart<Number, Number> chart = new ScatterChart<>(xAxis, yAxis);
-
+//		chart.setCreateSymbols(false);
+		chart.getStyleClass().add("thick-chart");
 		chart.setTitle("Logistic¹«Ê½·Ö²æÍ¼");
+		
 		bp.setLeft(gp);
 		vbox.getChildren().addAll(chart, bifucationLabel);
 		VBox.setVgrow(chart, Priority.ALWAYS);
@@ -98,7 +101,8 @@ public class BifurcationDiagram extends Application {
 
 				@Override
 				protected Void call() throws Exception {
-					LogisticMap.bifurcationDiagram(r1Field.getText(), r2Field.getText(), x0Field.getText(),
+//					LogisticMap.bifurcationDiagram(r1Field.getText(), r2Field.getText(), x0Field.getText(),
+							LogisticMap.bifurcationDiagram1(r1Field.getText(), r2Field.getText(), x0Field.getText(),
 							samplesField.getText(), (i, x) -> {
 
 								final CountDownLatch doneLatch = new CountDownLatch(1);
@@ -115,7 +119,7 @@ public class BifurcationDiagram extends Application {
 								} catch (InterruptedException e) {
 									// ignore exception
 								}
-							},10);
+							});
 					return null;
 				}
 			};
