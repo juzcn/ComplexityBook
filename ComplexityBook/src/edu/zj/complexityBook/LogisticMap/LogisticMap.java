@@ -133,4 +133,8 @@ public class LogisticMap {
 		return r;
 	}
 
+	public int getScale() {
+		return scale;
+	}
+
 }
