@@ -1,10 +1,9 @@
 package edu.zj.complexityBook.CA.GameOfLife;
 
-import edu.zj.utils.Grid.Model.Grid;
-import edu.zj.utils.Grid.View.GridDisplayPane;
+import edu.zj.complexityBook.CA.CADisplay;
 import javafx.scene.paint.Color;
 
-public class GolView extends GridDisplayPane<Integer> {
+public class GolView extends CADisplay {
 
 
 	public GolView(GolModel model,GolConfig.ViewParams params) {
