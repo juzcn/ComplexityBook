@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 //public class WolframView extends CAGridView<State,Integer,WolframData> {
 public class WolframView extends GridDisplayCanvas<Integer> {
 	public WolframView(WolframModel model, WolframConfig.ViewParams params ) {
-		super(1, model.getColumnCount(), params.getCellSize(), Color.BLACK, model.getGrid());
+		super(1, model.getColumnCount(), params.getCellSize(), params.getBorderColor(), model.getGrid());
 		VBox vbox = new VBox();
 		vbox.setPrefHeight(600);
 		vbox.getChildren().add(super.getNode());
@@ -28,7 +28,7 @@ public class WolframView extends GridDisplayCanvas<Integer> {
 
 	@Override
 	public void redraw() {
-		Canvas c = new Canvas(getMinColumnCount() * this.getCellSize(), getCellSize());
+		Canvas c = new Canvas(this.getGrid().getColumnSize() * this.getCellSize(), getCellSize());
 		((VBox)super.getNode()).getChildren().add(c);
 		this.setGridGC(c.getGraphicsContext2D());
 		updateViewPort();
