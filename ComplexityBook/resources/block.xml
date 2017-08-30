@@ -1,0 +1,6 @@
+<grid name="Block" rowCount="20" columnCount="20" default="0" >
+	<cell row="9" column="9" value="1" />
+	<cell row="9" column="10" value="1" />
+	<cell row="10" column="9" value="1" />
+	<cell row="10" column="10" value="1" />
+</grid>
